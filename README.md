@@ -10,6 +10,6 @@ App per smettere di fumare trasformata in un gioco: il tuo personaggio parte com
 - **Negozio e armadio**: oggetti e compagni a tema da comprare con la moneta del gioco
 - **Collezione da 7** (bobblehead, sfere del drago, rune) con premio finale
 - **Diario delle voglie**: orari e cause delle voglie, con consigli mirati
-- **63 obiettivi da riscattare**, risparmi veri da raccogliere e spendere in premi, SOS craving con respirazione guidata
+- **64 obiettivi da riscattare**, risparmi veri da raccogliere e spendere in premi, SOS craving con respirazione guidata
 
 Un solo file `index.html`, nessuna dipendenza. I dati restano nel browser (localStorage).
