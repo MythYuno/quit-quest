@@ -70,7 +70,7 @@ h1{font-size:clamp(22px,4.4vw,36px);line-height:1}
 .sub{margin:3px 0 0;color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 .icon-btn{flex:none;width:44px;height:44px;border-radius:var(--radius);border:var(--bw) solid var(--line);background:var(--panel);color:var(--text);font-size:20px;cursor:pointer;box-shadow:var(--shadow-sm)}
 
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;position:sticky;top:0;z-index:20;padding:8px 0}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;position:sticky;top:0;z-index:20;padding:8px 0}
 .tabs::before{content:"";position:absolute;inset:0 -16px;background:linear-gradient(var(--bg) 75%,transparent);z-index:-1}
 .tab{position:relative;font-family:var(--font-head);font-size:clamp(13px,2.7vw,18px);padding:10px 4px;border:var(--bw) solid var(--line);background:var(--panel);color:var(--text);border-radius:var(--radius);cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s}
 .tab:active{transform:translateY(1px)}
@@ -192,6 +192,7 @@ input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
 /* ---------- evoluzione ---------- */
 .evo{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
 @media(min-width:860px){.evo{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+.evo .stagebox{max-width:340px;margin-inline:auto}
 .track{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
 .form{padding:8px;text-align:center;cursor:pointer;border-radius:var(--radius);border:var(--bw) solid var(--line);background:var(--panel);box-shadow:var(--shadow-sm);transition:transform .15s}
 .form:hover{transform:translateY(-2px)}
@@ -265,6 +266,57 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
 @keyframes fume{0%{opacity:0;transform:translateY(6px)}30%{opacity:.85}100%{opacity:0;transform:translateY(-22px)}}
 @keyframes core{50%{opacity:.45}}
 @keyframes shadowbob{50%{transform:translateY(-3px)}}
+/* ---------- reazioni del personaggio ---------- */
+#heroStage{cursor:pointer}
+.bubble{position:absolute;top:46px;left:50%;transform:translateX(-50%);z-index:3;max-width:82%;padding:8px 12px;border-radius:14px;background:#fff;color:#111;font:700 13px/1.25 var(--font-body);box-shadow:0 4px 0 rgba(0,0,0,.35);animation:rise .2s ease;text-align:center}
+.bubble::after{content:"";position:absolute;bottom:-8px;left:50%;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
+body[data-theme=fallout] .bubble{background:#031a0b;color:var(--text);border:1px solid var(--accent)}
+body[data-theme=fallout] .bubble::after{border-top-color:var(--accent)}
+body[data-theme=sl] .bubble{background:rgba(8,20,45,.96);color:var(--text);border:1px solid var(--accent);box-shadow:var(--glow)}
+body[data-theme=sl] .bubble::after{border-top-color:var(--accent)}
+.jump .avatar{animation:jump .5s ease}
+.av-pet{animation:shadowbob 2.4s ease-in-out infinite}
+
+/* ---------- boss ---------- */
+.boss{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center}
+.boss .be,.bcard .be{font-size:40px;line-height:1;text-align:center}
+.boss.fight .be{animation:wiggle .9s ease-in-out infinite}
+.boss.ready{border-color:var(--gold)!important}
+.bar.hp>i{background:linear-gradient(90deg,#ff3b3b,#ff9a3b)}
+.bosses{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.bcard{padding:12px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.bcard.next .be{filter:grayscale(1) brightness(.6)}
+.bcard.won .be{opacity:.55}
+.bcard.ready{border-color:var(--gold)!important;box-shadow:0 0 0 1px var(--gold),0 0 18px rgba(255,200,60,.25)}
+.bcard b{font-size:14px;line-height:1.15}
+
+/* ---------- armadio, negozio, collezione ---------- */
+.coins{font-family:var(--font-head);font-size:24px;color:var(--gold);white-space:nowrap}
+.shop{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.item{padding:10px;text-align:center;display:flex;flex-direction:column;gap:5px;align-items:center}
+.item .ie{font-size:34px;line-height:1.1}
+.item b{font-size:14px;line-height:1.15}
+.item.equipped{border-color:var(--gold)!important;box-shadow:0 0 0 2px var(--gold)}
+.coll{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.orb{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:clamp(14px,3.6vw,22px);border:2px dashed var(--line);opacity:.4;background:var(--panel2);text-align:center;line-height:1}
+.orb.ready{opacity:1;border-style:solid;border-color:var(--gold);animation:pop 1.4s ease-in-out infinite;cursor:pointer}
+.orb.got{opacity:1;border-style:solid}
+body[data-theme=db] .orb.got,body[data-theme=db] .orb.ready{background:radial-gradient(circle at 35% 30%,#fff6cf,#ffb020 45%,#e06a00);border-color:#000;color:#d0141c;font-size:clamp(7px,1.6vw,10px);letter-spacing:-1px;padding:2px}
+
+/* ---------- diario ---------- */
+.hours{display:flex;align-items:flex-end;gap:2px;height:130px;margin-top:10px;border-bottom:1px solid var(--line)}
+.hours div{flex:1;background:var(--bar);border-radius:3px 3px 0 0;min-height:2px}
+.hours div.peak{background:var(--danger)}
+.hlabels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:3px}
+.trg{display:grid;grid-template-columns:140px minmax(0,1fr) 30px;gap:8px;align-items:center;margin-top:8px;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:inherit;font-size:14px;padding:8px 12px;border-radius:99px;border:var(--bw) solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer}
+.chips button.on{background:var(--accent);color:var(--accent-ink)}
+.log{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(127,127,127,.3);font-size:13px}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+@media(max-width:560px){.tab{flex-direction:column;gap:1px;padding:7px 2px;font-size:11px}.tab .ti{font-size:18px}.trg{grid-template-columns:110px minmax(0,1fr) 26px}}
+@keyframes jump{30%{transform:translateY(-14px)}60%{transform:translateY(0)}78%{transform:translateY(-4px)}}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -282,14 +334,16 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
     <button class="tab on" data-tab="hero"><span class="ti">🧍</span><span class="tl"></span></button>
     <button class="tab" data-tab="goals"><span class="ti">🏆</span><span class="tl"></span><span class="badge" id="badgeGoals" hidden></span></button>
     <button class="tab" data-tab="treasure"><span class="ti">💰</span><span class="tl"></span><span class="badge" id="badgeTreasure" hidden>!</span></button>
-    <button class="tab" data-tab="evo"><span class="ti">🧬</span><span class="tl"></span></button>
+    <button class="tab" data-tab="evo"><span class="ti">🎒</span><span class="tl"></span><span class="badge" id="badgeEvo" hidden>!</span></button>
+    <button class="tab" data-tab="diary"><span class="ti">📓</span><span class="tl"></span></button>
   </nav>
 
   <main>
     <!-- ============ EROE ============ -->
     <section id="tab-hero" class="hero">
       <div class="panel">
-        <div class="stagebox">
+        <div class="stagebox" id="heroStage" title="Tocca il personaggio">
+          <div class="bubble" id="bubble" hidden></div>
           <span class="chip rankchip" id="rankChip"></span>
           <span class="chip formchip" id="formChip"></span>
           <div class="avatar" id="avatar"></div>
@@ -310,6 +364,12 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
           </div>
           <div class="bar" style="margin-top:8px"><i id="xpBar"></i></div>
           <div class="row between small muted" style="margin-top:4px"><span id="xpText"></span><span id="xpTotal"></span></div>
+        </div>
+
+        <div class="panel boss" id="bossBox" hidden>
+          <div class="be" id="bossEmo"></div>
+          <div style="min-width:0"><div class="small muted" id="bossKicker" style="text-transform:uppercase;letter-spacing:.1em"></div><b class="head" id="bossName" style="font-size:22px"></b><div class="bar hp" style="margin-top:6px"><i id="bossHp"></i></div><div class="small muted" id="bossText" style="margin-top:4px"></div></div>
+          <button class="btn gold sm" id="btnBoss" hidden></button>
         </div>
 
         <div class="panel">
@@ -358,6 +418,11 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
         </div>
         <div class="bar" style="margin-top:10px"><i id="goalsBar"></i></div>
       </div>
+      <div class="panel" style="margin-bottom:14px">
+        <h3 id="bossesTitle"></h3>
+        <p class="small muted" style="margin:4px 0 10px">I giorni più duri diventano battaglie: resisti per tutte le 24 ore e il boss è sconfitto.</p>
+        <div class="bosses" id="bossList"></div>
+      </div>
       <div class="filters" id="filters"></div>
       <div class="goals" id="goalList"></div>
     </section>
@@ -367,7 +432,7 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
       <div class="stack">
         <div class="panel chest" id="chest">
           <div class="emo" id="chestEmo">💰</div>
-          <div class="small muted" style="text-transform:uppercase;letter-spacing:.1em" id="collectLabel">Da raccogliere</div>
+          <div class="small muted" style="text-transform:uppercase;letter-spacing:.1em">Risparmi da raccogliere</div>
           <div class="big" id="toCollect">€0,00</div>
           <button class="btn gold block" id="btnCollect" style="font-size:20px;padding:14px">Raccogli</button>
           <div class="walletrow">
@@ -403,6 +468,17 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
     <section id="tab-evo" class="evo" hidden>
       <div class="stack">
         <div class="panel">
+          <div class="row between"><h3 id="wardTitle"></h3><span class="coins" id="coinBal"></span></div>
+          <div class="stagebox" style="margin-top:10px"><div class="avatar" id="wardAvatar"></div></div>
+          <p class="small muted" id="coinHelp" style="margin:10px 0 0"></p>
+        </div>
+        <div class="panel">
+          <div class="row between"><h3 id="collTitle"></h3><span class="chip" id="collCount"></span></div>
+          <p class="small muted" id="collText" style="margin:4px 0 10px"></p>
+          <div class="coll" id="coll"></div>
+          <button class="btn gold block" id="btnSummon" style="margin-top:12px" hidden></button>
+        </div>
+        <div class="panel">
           <h3 id="evoTitle"></h3>
           <div class="stagebox" style="margin-top:10px"><div class="avatar" id="prevAvatar"></div><span class="chip rankchip" id="prevChip"></span></div>
           <h2 class="stagename" id="prevName"></h2>
@@ -421,10 +497,34 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
           <button class="btn ghost block" id="btnRelapse2" style="margin-top:12px">Ho fumato…</button>
         </div>
       </div>
-      <div class="panel">
-        <h3>Tutte le forme</h3>
-        <p class="small muted" style="margin:4px 0 12px">Ogni forma si sblocca restando senza fumo. Tocca una forma per vederla in anteprima.</p>
-        <div class="track" id="track"></div>
+      <div class="stack">
+        <div class="panel">
+          <h3 id="shopTitle"></h3>
+          <p class="small muted" style="margin:4px 0 12px">Compra oggetti con la moneta del gioco e falli indossare al tuo personaggio.</p>
+          <div class="shop" id="shop"></div>
+        </div>
+        <div class="panel">
+          <h3>Tutte le forme</h3>
+          <p class="small muted" style="margin:4px 0 12px">Ogni forma si sblocca restando senza fumo. Tocca una forma per vederla in anteprima.</p>
+          <div class="track" id="track"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIARIO ============ -->
+    <section id="tab-diary" hidden>
+      <div class="panel" style="margin-bottom:14px">
+        <div class="row between">
+          <div><h2 id="diaryTitle" style="font-size:28px"></h2><div class="small muted">Annota ogni voglia: capire quando e perché arriva è l'arma più forte per smettere.</div></div>
+          <button class="btn" id="btnLog">+ Annota una voglia</button>
+        </div>
+        <div class="walletrow" id="diaryStats"></div>
+      </div>
+      <div class="treasure">
+        <div class="panel"><h3>Quando arriva la voglia</h3><div class="hours" id="hourChart"></div><div class="hlabels"><span>0:00</span><span>6:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div><p class="small" id="hourNote" style="margin:10px 0 0"></p></div>
+        <div class="panel"><h3>Cosa la scatena</h3><div id="trigChart"></div></div>
+        <div class="panel"><h3>La tua strategia</h3><div id="advice"></div></div>
+        <div class="panel"><h3>Ultime voci</h3><div id="logList"></div></div>
       </div>
     </section>
   </main>
@@ -499,6 +599,21 @@ body[data-theme=db] .toast b{font-weight:400;color:var(--gold);text-shadow:2px 2
   </div>
 </div>
 
+<!-- ============ DIARIO: NUOVA VOCE ============ -->
+<div class="modal" id="mDiary" hidden>
+  <div class="box panel stack">
+    <div class="row between"><h2 style="font-size:26px">Cosa l'ha scatenata?</h2><button class="icon-btn" data-close aria-label="Chiudi">✕</button></div>
+    <div class="chips" id="trigPick"></div>
+    <div id="outcomeRow" class="stack">
+      <div class="field"><span>Com'è andata</span></div>
+      <div class="chips" id="outPick"><button type="button" data-out="1">💪 Ho resistito</button><button type="button" data-out="0">🚬 Ho fumato</button></div>
+    </div>
+    <label class="field"><span>Intensità della voglia: <b id="intVal">3</b>/5</span><input type="range" id="fInt" min="1" max="5" value="3"></label>
+    <button class="btn block" id="btnSaveLog" disabled>Salva nel diario</button>
+    <button class="btn ghost block" data-close>Salta</button>
+  </div>
+</div>
+
 <div class="toasts" id="toasts"></div>
 
 <script>
@@ -512,7 +627,13 @@ const TH_LABEL=['Giorno 0','20 minuti','8 ore','1 giorno','3 giorni','1 settiman
 const THEMES={
   fallout:{
     label:'Fallout',logo:'☢️',title:'VAULT-TEC QUIT-O-MATIC',sub:'Sistema di decontaminazione personale',
-    tabs:['Stat','Obiettivi','Tappi','Mutazioni'],currency:'Tappi',claim:'Riscatta',lv:'LIVELLO',
+    tabs:['Stat','Obiettivi','Risparmi','Armadio','Diario'],currency:'tappi',claim:'Riscatta',lv:'LIVELLO',
+    wardTitle:'Armadietto del Vault',shopTitle:'Negozio di Moira',diaryTitle:'Registro del sopravvissuto',bossesTitle:'Creature della Zona',
+    collTitle:'Bobblehead S.P.E.C.I.A.L.',collText:'Trovi un bobblehead a ogni grande traguardo, da 1 giorno a 6 mesi. Completa la collezione per sbloccare Vault Boy come compagno.',
+    coll:[['💪','Forza'],['👁️','Percezione'],['🛡️','Resistenza'],['😎','Carisma'],['🧠','Intelligenza'],['🏃','Agilità'],['🍀','Fortuna']],
+    summon:'Completa la collezione',summonDone:'Vault Boy si è unito a te!',
+    bosses:[['🦂','Radscorpione Gigante'],['🪓','Re dei Raider'],['🦖','Deathclaw Alfa'],['🧟','Behemoth Super Mutante'],['🦀','Regina Mirelurk'],['🦇','Regina Scorchbeast']],
+    lines:[['*coff coff* …acqua radioattiva…','Mi sento… meno putrefatto.','Grrr… sigaretta…'],['Il contatore Geiger tace. Bel segno!','Si respira meglio qui fuori.','Vault-Tec approva!'],['Nessuna radiazione può fermarmi!','Polmoni d\'acciaio, signore!','Ad Victoriam!']],
     statsTitle:'S.P.E.C.I.A.L. biologico',stats:['Resistenza','Forza','Percezione','Agilità','Intelligenza'],
     dailyTitle:'Incarichi del giorno',goalsTitle:'Obiettivi del Vault',evoTitle:'Laboratorio mutazioni',wishTitle:'Bottino da comprare',
     sosTitle:'Allarme dipendenza',sosText:'Somministrazione di Med-X mentale in corso. I Raider della nicotina se ne andranno presto.',
@@ -537,7 +658,13 @@ const THEMES={
   },
   db:{
     label:'Dragon Ball',logo:'🐉',title:'SAIYAN QUIT TRAINING',sub:'Allenamento speciale nella Stanza dello Spirito e del Tempo',
-    tabs:['Guerriero','Imprese','Zeni','Trasform.'],currency:'Zeni',claim:'Raccogli',lv:'LIVELLO',
+    tabs:['Guerriero','Imprese','Risparmi','Capsula','Diario'],currency:'zeni',claim:'Raccogli',lv:'LIVELLO',
+    wardTitle:'Capsula Corp.',shopTitle:'Negozio di Bulma',diaryTitle:'Diario di allenamento',bossesTitle:'Nemici della saga',
+    collTitle:'Sfere del Drago',collText:'A ogni grande traguardo, da 1 giorno a 6 mesi, trovi una sfera. Raccoglile tutte e 7 per evocare Shenron.',
+    coll:[1,2,3,4,5,6,7].map(n=>['★'.repeat(n),`Sfera a ${n} ${n===1?'stella':'stelle'}`]),
+    summon:'Evoca Shenron!',summonDone:'Shenron è apparso: ora vola al tuo fianco!',
+    bosses:[['👽','Raditz'],['🦍','Vegeta Oozaru'],['😈','Freezer'],['🦗','Cell Perfetto'],['🍬','Majin Bu'],['🗿','Jiren']],
+    lines:[['Ugh… non ho neanche il Ki per alzarmi…','*coff* …voglio un fagiolo di Balzar…','Sono solo un terrestre…'],['Sento il Ki che cresce!','Ancora un po\' di allenamento!','Kame… hame…'],['Il mio livello è oltre 9000!','Questa non è nemmeno la mia forma finale!','KAMEHAMEHA!!!']],
     statsTitle:'Statistiche di combattimento',stats:['Ki','Forza','Velocità','Resistenza','Spirito'],
     dailyTitle:'Allenamento del giorno',goalsTitle:'Imprese del guerriero',evoTitle:'Tutte le trasformazioni',wishTitle:'Desideri da esaudire',
     sosTitle:'Concentra il Ki!',sosText:'Il nemico sta attaccando. Respira, accumula energia e respingilo come un vero Saiyan.',
@@ -562,7 +689,13 @@ const THEMES={
   },
   sl:{
     label:'Solo Leveling',logo:'🗡️',title:'SISTEMA',sub:'[ Missione: liberarsi dal fumo ]',
-    tabs:['Status','Missioni','Inventario','Ranghi'],currency:'Oro',claim:'Accetta',lv:'LV.',
+    tabs:['Status','Missioni','Risparmi','Inventario','Diario'],currency:'oro',claim:'Accetta',lv:'LV.',
+    wardTitle:'Equipaggiamento',shopTitle:'Negozio del Sistema',diaryTitle:'Registro del Sistema',bossesTitle:'Boss dei dungeon',
+    collTitle:'Pietre runiche',collText:'Ottieni una pietra runica a ogni grande traguardo, da 1 giorno a 6 mesi. Con tutte e 7 puoi richiamare Igris.',
+    coll:[['🟦','Runa della Rapidità'],['🟥','Runa della Forza'],['🟩','Runa della Vitalità'],['🟨','Runa della Percezione'],['🟪','Runa dell\'Intelligenza'],['⬛','Runa dell\'Ombra'],['⬜','Runa del Monarca']],
+    summon:'Alzati!',summonDone:'Igris il Rosso Sangue ora ti serve.',
+    bosses:[['🐕','Cerbero'],['🗡️','Igris il Rosso Sangue'],['👿','Vulcan, Re dei Demoni'],['🐜','Beru, Re delle Formiche'],['🔥','Baran'],['🐉','Antares, Re dei Draghi']],
+    lines:[['…sono il più debole…','*coff* Il Sistema mi sta osservando?','Non ce la faccio…'],['Level up. Lo sento.','Missione accettata.','Le statistiche salgono.'],['Alzati.','Io sono il Monarca delle Ombre.','Nessun dungeon può fermarmi.']],
     statsTitle:'Statistiche',stats:['VIT','FOR','PER','AGI','INT'],
     dailyTitle:'Missione giornaliera',goalsTitle:'Missioni del Sistema',evoTitle:'Avanzamento di rango',wishTitle:'Negozio del Sistema',
     sosTitle:'Missione d\'emergenza',sosText:'[ Avviso ] È apparso un nemico: la voglia di fumare. Sopravvivi per 3 minuti.',
@@ -598,10 +731,63 @@ const DAILY=[
   {id:'snack',e:'🍎',t:'Uno spuntino sano al posto della sigaretta'}
 ];
 
+/* Boss: finestre di 24 ore nei giorni più duri [inizio, fine, XP] */
+const BOSS_W=[[0,24,300],[48,72,600],[144,168,800],[312,336,1000],[696,720,1500],[2136,2160,3000]];
+const BOSS_LABEL=['Giorno 1','Giorno 3 · picco astinenza','Giorno 7','Giorno 14','Giorno 30','Giorno 90'];
+
+const TRIG=[['coffee','☕','Caffè'],['stress','😤','Stress'],['meal','🍽️','Dopo i pasti'],['alcohol','🍺','Alcol'],['bored','🥱','Noia'],['social','👥','Con chi fuma'],['drive','🚗','In auto'],['wake','🌅','Al risveglio'],['phone','📱','Pausa / telefono'],['other','❓','Altro']];
+const TRIG_TIPS={
+  coffee:'Cambia il rito: bevi il caffè in un posto diverso o passa per qualche giorno al tè. Tieni le mani occupate con la tazza.',
+  stress:'Quando sale lo stress apri subito l\'SOS e fai un minuto di respirazione. Lo stress passa, e la voglia con lui.',
+  meal:'Alzati da tavola appena finito: lavati i denti o fai due passi. Il dopo pasto è un\'abitudine, non un bisogno.',
+  alcohol:'L\'alcol abbassa le difese: nelle prime settimane riducilo o evita le serate più a rischio.',
+  bored:'Prepara una lista di 5 cose da fare in 5 minuti: un gioco, un video, una chiamata, 20 squat.',
+  social:'Avvisa gli amici che stai smettendo e allontanati quando accendono. Tieni in mano qualcos\'altro.',
+  drive:'In auto tieni gomme o semi a portata di mano e togli accendino e posacenere.',
+  wake:'Appena sveglio bevi un bicchiere d\'acqua e vai subito in doccia: rompi la sequenza.',
+  phone:'Nelle pause cambia gesto: una camminata breve invece del solito angolo fumatori.',
+  other:'Annota cosa stavi facendo: dopo qualche voce vedrai lo schema.'
+};
+
+/* Oggetti del negozio: disegnati sopra il personaggio usando i suoi punti di ancoraggio */
+const SLOTS={head:'Testa',face:'Viso',hand:'Mano',wrist:'Polso',back:'Schiena',ground:'Piedi',pet:'Compagno'};
+const SOLDIER='M0 -120 C-16 -120 -20 -104 -18 -94 L-12 -88 L-30 -78 L-38 -30 L-30 0 L-22 0 L-20 -36 L-16 0 L16 0 L20 -36 L22 0 L30 0 L38 -30 L30 -78 L12 -88 L18 -94 C20 -104 16 -120 0 -120Z M-6 -122 L-14 -140 L-2 -124Z M6 -122 L14 -140 L2 -124Z';
+const pet=s=>`<g class="av-pet">${s}</g>`;
+const ITEMS={
+  fallout:[
+    {id:'pipboy',slot:'wrist',e:'📟',name:'Pip-Boy 3000',price:60,draw:A=>`<g transform="translate(${A.lw[0].toFixed(1)} ${A.lw[1].toFixed(1)})"><rect x="-8" y="-6" width="16" height="12" rx="2.5" fill="#6b6844" stroke="#2a2a1a" stroke-width="1.2"/><rect x="-5.5" y="-4" width="8" height="8" rx="1" fill="#3dff7a"/><circle cx="5" cy="-1" r="1.6" fill="#d6b24a"/><circle cx="5" cy="3" r="1.2" fill="#d6b24a"/></g>`},
+    {id:'nuka',slot:'hand',e:'🍾',name:'Nuka-Cola',price:40,draw:A=>`<g transform="translate(${A.rh[0].toFixed(1)} ${(A.rh[1]-12).toFixed(1)})"><path d="M-2.5 -12 h5 v5 q4 3 4 8 v14 q0 3 -3 3 h-7 q-3 0 -3 -3 v-14 q0 -5 4 -8z" fill="#3b1f14" stroke="#111"/><rect x="-4.5" y="1" width="9" height="7" fill="#e3242b"/><rect x="-3" y="-15" width="6" height="3" fill="#ccc"/></g>`},
+    {id:'shades',slot:'face',e:'🕶️',name:'Occhiali del Corriere',price:90,draw:A=>`<g fill="#111" stroke="#000" stroke-width="1"><rect x="${A.cx-21}" y="${A.hy-2}" width="16" height="11" rx="3"/><rect x="${A.cx+5}" y="${A.hy-2}" width="16" height="11" rx="3"/></g><path d="M${A.cx-5} ${A.hy+1} h10 M${A.cx-21} ${A.hy} L${A.cx-A.R+1} ${A.hy-2} M${A.cx+21} ${A.hy} L${A.cx+A.R-1} ${A.hy-2}" stroke="#111" stroke-width="2"/><path d="M${A.cx-18} ${A.hy+1} l5 0 M${A.cx+8} ${A.hy+1} l5 0" stroke="#fff" opacity=".45"/>`},
+    {id:'backpack',slot:'back',e:'🎒',name:'Zaino del viandante',price:120,draw:A=>`<rect x="${A.cx-A.shW-5}" y="${A.tTop-2}" width="${2*A.shW+10}" height="${A.tBot-A.tTop-14}" rx="8" fill="#5d6b3a" stroke="#2c3319" stroke-width="1.5"/><rect x="${A.cx-A.shW-2}" y="${A.tTop-12}" width="${2*A.shW+4}" height="11" rx="5.5" fill="#8a6a44" stroke="#3d2c1a"/>`},
+    {id:'hat',slot:'head',e:'🤠',name:'Cappello da cowboy',price:150,draw:A=>{const{cx,hy,R}=A;return`<path d="M${cx-R*.62} ${hy-R*.66} C${cx-R*.62} ${hy-R*1.55} ${cx+R*.62} ${hy-R*1.55} ${cx+R*.62} ${hy-R*.66}Z" fill="#7a4e28" stroke="#2e1d0e" stroke-width="1.3"/><path d="M${cx-R*.6} ${hy-R*.8} Q${cx} ${hy-R*.72} ${cx+R*.6} ${hy-R*.8}" stroke="#2e1d0e" stroke-width="3.5" fill="none"/><path d="M${cx-R*1.3} ${hy-R*.58} Q${cx} ${hy-R*.32} ${cx+R*1.3} ${hy-R*.58} Q${cx} ${hy-R*.8} ${cx-R*1.3} ${hy-R*.58}Z" fill="#6b4423" stroke="#2e1d0e" stroke-width="1.3"/>`}},
+    {id:'dog',slot:'pet',e:'🐕',name:'Dogmeat',price:400,draw:()=>pet(`<g transform="translate(30 216)"><path d="M-11 -8 v12 M-5 -7 v11 M7 -7 v11 M12 -8 v12" stroke="#6a4222" stroke-width="3.5" stroke-linecap="round"/><path d="M-15 -16 q-10 -5 -8 -15" stroke="#8a5a32" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="-14" rx="16" ry="9" fill="#8a5a32" stroke="#3a2412"/><circle cx="16" cy="-24" r="8" fill="#8a5a32" stroke="#3a2412"/><path d="M20 -23 l9 2 l-2 5 l-8 -1z" fill="#8a5a32" stroke="#3a2412"/><circle cx="28" cy="-18.5" r="1.7" fill="#111"/><path d="M11 -29 l-4 -8 l8 3z" fill="#5a3a1e"/><circle cx="18" cy="-26" r="1.4" fill="#111"/></g>`)},
+    {id:'vaultboy',slot:'pet',e:'👍',name:'Vault Boy',special:true,draw:()=>pet(`<g transform="translate(34 216)"><rect x="-7" y="-17" width="14" height="17" rx="3" fill="#2b5cab" stroke="#14315f"/><rect x="-1" y="-17" width="2" height="17" fill="#f3c234"/><circle cx="0" cy="-31" r="14" fill="#f6d2a6" stroke="#5a3a1e"/><path d="M-14 -35 q4 -15 19 -11 q9 2 9 9 q-7 -7 -15 -3z" fill="#f3c234" stroke="#b08a1a"/><circle cx="-4.5" cy="-31" r="1.7" fill="#111"/><circle cx="5" cy="-31" r="1.7" fill="#111"/><path d="M-5.5 -24 q5.5 5 11 0" stroke="#111" fill="none" stroke-width="1.6"/><path d="M7 -12 l8 -6 v-7 h3.5 v9 l-9.5 7" fill="#f6d2a6" stroke="#5a3a1e"/></g>`)}
+  ],
+  db:[
+    {id:'senzu',slot:'hand',e:'🫘',name:'Fagiolo di Balzar',price:40,draw:A=>`<ellipse cx="${(A.rh[0]+1).toFixed(1)}" cy="${(A.rh[1]-7).toFixed(1)}" rx="3.4" ry="4.4" fill="#7bd34a" stroke="#2f6d1a" transform="rotate(-25 ${(A.rh[0]+1).toFixed(1)} ${(A.rh[1]-7).toFixed(1)})"/>`},
+    {id:'scouter',slot:'face',e:'🥽',name:'Scouter',price:120,draw:A=>`<path d="M${A.cx-A.R} ${A.hy+2} L${A.cx-22} ${A.hy+2}" stroke="#ddd" stroke-width="3"/><rect x="${A.cx-A.R-5}" y="${A.hy-4}" width="7" height="14" rx="2" fill="#e0e0e0" stroke="#555"/><path d="M${A.cx-23} ${A.hy-6} h17 v13 h-17z" fill="#2fe07a" opacity=".55" stroke="#1b8a46" stroke-width="1.2"/>`},
+    {id:'staff',slot:'back',e:'🦯',name:'Bastone magico',price:150,draw:A=>{const x1=A.cx-A.shW-14,y1=A.tTop-36,x2=A.cx+A.shW+12,y2=A.tBot+12;return`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#7a0f14" stroke-width="7" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#d3212b" stroke-width="5" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="3.6" fill="#e8c03a"/><circle cx="${x2}" cy="${y2}" r="3.6" fill="#e8c03a"/>`}},
+    {id:'halo',slot:'head',e:'😇',name:'Aureola dell\'Aldilà',price:200,draw:A=>`<ellipse cx="${A.cx}" cy="${A.hy-A.R-26}" rx="17" ry="4.6" fill="none" stroke="#fff3a0" stroke-width="5" opacity=".5"/><ellipse cx="${A.cx}" cy="${A.hy-A.R-26}" rx="17" ry="4.6" fill="none" stroke="#ffd23f" stroke-width="3"/>`},
+    {id:'puar',slot:'pet',e:'🐱',name:'Gattino volante',price:300,draw:()=>pet(`<g transform="translate(32 172)"><path d="M0 13 q-7 10 4 16" stroke="#7fb8ff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M-11 -6 l-3 -12 l9 6z M11 -6 l3 -12 l-9 6z" fill="#7fb8ff" stroke="#2b5b9a"/><circle r="13" fill="#7fb8ff" stroke="#2b5b9a"/><circle cx="-4.5" cy="-1" r="2" fill="#111"/><circle cx="4.5" cy="-1" r="2" fill="#111"/><path d="M-3 5 q3 3 6 0" stroke="#111" fill="none"/></g>`)},
+    {id:'nimbus',slot:'ground',e:'☁️',name:'Nuvola d\'oro',price:450,draw:A=>{const y=A.footY+7,cs=[[64,0,11],[80,-4,14],[100,-5,15],[120,-4,14],[136,0,11]];return`<g fill="#ffd23f" stroke="#e09a00" stroke-width="2">${cs.map(c=>`<circle cx="${c[0]}" cy="${y+c[1]}" r="${c[2]}"/>`).join('')}</g><g fill="#ffd23f">${cs.map(c=>`<circle cx="${c[0]}" cy="${y+c[1]}" r="${c[2]-1.6}"/>`).join('')}</g><path d="M70 ${y-6} q8 -6 16 -2" stroke="#fff6c4" stroke-width="2.5" fill="none" stroke-linecap="round"/>`}},
+    {id:'shenron',slot:'pet',e:'🐉',name:'Shenron',special:true,draw:()=>pet(`<g transform="translate(30 206)"><path d="M0 0 C-24 -10 20 -32 -2 -50 C-16 -62 6 -76 14 -72" stroke="#1d6e2a" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M0 0 C-24 -10 20 -32 -2 -50 C-16 -62 6 -76 14 -72" stroke="#3fbf4a" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M0 0 C-24 -10 20 -32 -2 -50" stroke="#e8d27a" stroke-width="2.5" fill="none" stroke-dasharray="3 3"/><circle cx="16" cy="-74" r="8.5" fill="#3fbf4a" stroke="#1d5e24"/><circle cx="19" cy="-76" r="2.2" fill="#ff2a2a"/><path d="M12 -81 l-5 -9 M18 -82 l2 -10" stroke="#e8d27a" stroke-width="2" stroke-linecap="round"/></g>`)}
+  ],
+  sl:[
+    {id:'window',slot:'head',e:'🪟',name:'Finestra del Sistema',price:60,draw:A=>pet(`<rect x="${A.cx+A.R-4}" y="${A.hy-A.R-24}" width="44" height="22" rx="2" fill="rgba(20,70,140,.65)" stroke="#4fd2ff"/><text x="${A.cx+A.R+18}" y="${A.hy-A.R-9}" font-size="8" font-weight="700" font-family="sans-serif" text-anchor="middle" fill="#cfefff">LEVEL UP!</text>`)},
+    {id:'mask',slot:'face',e:'😷',name:'Maschera da assassino',price:100,draw:A=>`<path d="M${A.cx-A.R+3} ${A.hy+10} Q${A.cx} ${A.hy+6} ${A.cx+A.R-3} ${A.hy+10} L${A.cx+A.R-8} ${A.hy+27} Q${A.cx} ${A.hy+36} ${A.cx-A.R+8} ${A.hy+27}Z" fill="#14151f" stroke="#000"/><path d="M${A.cx-A.R+6} ${A.hy+14} Q${A.cx} ${A.hy+10} ${A.cx+A.R-6} ${A.hy+14}" stroke="#3a3f60" fill="none"/>`},
+    {id:'dagger',slot:'hand',e:'🗡️',name:'Pugnale di Kasaka',price:150,draw:A=>{const[x,y]=A.rh;return`<path d="M${x} ${y-4} L${x-3.5} ${y-8} L${x} ${y-38} L${x+3.5} ${y-8}Z" fill="#a8c4ff" stroke="#3a3f8a" stroke-width="1"/><path d="M${x} ${y-10} L${x} ${y-34}" stroke="#e9f2ff" stroke-width="1"/><rect x="${x-7}" y="${y-9}" width="14" height="3.5" rx="1" fill="#2a2a3a"/>`}},
+    {id:'cape',slot:'back',e:'🧥',name:'Mantello delle Ombre',price:220,draw:A=>`<path d="M${A.cx-A.shW+2} ${A.tTop+2} Q${A.cx-A.shW-20} ${A.tBot} ${A.cx-A.shW-24} ${A.footY-2} L${A.cx+A.shW+24} ${A.footY-2} Q${A.cx+A.shW+20} ${A.tBot} ${A.cx+A.shW-2} ${A.tTop+2}Z" fill="#0d0d18" stroke="#6d28d9" stroke-width="1.6"/>`},
+    {id:'wolf',slot:'pet',e:'🐺',name:'Lupo d\'ombra',price:350,draw:()=>pet(`<g transform="translate(30 216)"><path d="M-12 -8 v12 M-5 -7 v11 M7 -7 v11 M13 -8 v12" stroke="#0b0918" stroke-width="3.5" stroke-linecap="round"/><path d="M-16 -16 q-10 -4 -12 -14" stroke="#0b0918" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="0" cy="-14" rx="17" ry="9" fill="#0b0918" stroke="#6d28d9"/><path d="M10 -18 l5 -14 l5 8 l5 -8 l2 12 l9 4 l-9 6 l-13 0z" fill="#0b0918" stroke="#6d28d9"/><circle cx="22" cy="-17" r="1.7" fill="#c4a1ff"/></g>`)},
+    {id:'crown',slot:'head',e:'👑',name:'Corona del Monarca',price:500,draw:A=>{const{cx,hy,R}=A;return`<path d="M${cx-20} ${hy-R+2} L${cx-25} ${hy-R-16} L${cx-12} ${hy-R-6} L${cx-6} ${hy-R-22} L${cx} ${hy-R-8} L${cx+6} ${hy-R-22} L${cx+12} ${hy-R-6} L${cx+25} ${hy-R-16} L${cx+20} ${hy-R+2}Z" fill="#1a1530" stroke="#a970ff" stroke-width="1.6"/><circle cx="${cx}" cy="${hy-R-3}" r="2.8" fill="#c4a1ff"/>`}},
+    {id:'igris',slot:'pet',e:'⚔️',name:'Igris',special:true,draw:()=>pet(`<g transform="translate(30 218) scale(.58)"><path d="M0 -122 q24 -24 40 -4 q-18 -6 -34 8z" fill="#c81d25"/><path d="${SOLDIER}" fill="#1c1222" stroke="#c81d25" stroke-width="2"/><ellipse cx="-6" cy="-104" rx="3.4" ry="1.6" fill="#ff5a5a"/><ellipse cx="6" cy="-104" rx="3.4" ry="1.6" fill="#ff5a5a"/><path d="M34 -60 L52 -120" stroke="#c9d3e6" stroke-width="4" stroke-linecap="round"/></g>`)}
+  ]
+};
+const itemById=id=>Object.values(ITEMS).flat().find(i=>i.id===id);
+
 /* =====================================================================
    OBIETTIVI
    ===================================================================== */
-const CATS={salute:['❤️','Salute'],soldi:['💰','Soldi'],sigarette:['🚭','Sigarette'],mente:['🧠','Volontà'],vita:['⏳','Vita']};
+const CATS={salute:['❤️','Salute'],soldi:['💰','Soldi'],sigarette:['🚭','Sigarette'],mente:['🧠','Volontà'],vita:['⏳','Vita'],gioco:['🎮','Gioco']};
 const ACH=[];
 const add=(id,cat,type,target,ico,title,desc,xp)=>ACH.push({id,cat,type,target,ico,title,desc,xp});
 [
@@ -634,6 +820,13 @@ add('buy3','soldi','buy',3,'🛍️','Premiarsi è giusto','Compra 3 premi con i
   .forEach((a,i)=>add('d'+a[0],'mente','daily',a[0],['📋','🗓️','🏋️','🏅'][i],a[1],`Completa ${a[0]} ${a[0]===1?'missione giornaliera':'missioni giornaliere'}.`,[60,250,800,2500][i]));
 [[60,'Un\'ora in più'],[1440,'Un giorno regalato'],[10080,'Una settimana in più'],[43200,'Un mese di vita'],[131400,'Tre mesi di vita'],[525600,'Un anno di vita']]
   .forEach((a,i)=>add('l'+a[0],'vita','life',a[0],['⏰','🌅','📅','🗓️','🌳','♾️'][i],a[1],`Recupera ${lifeLabel(a[0])} di vita (stima: circa 20 minuti per ogni sigaretta evitata).`,[50,200,500,1000,2000,4000][i]));
+[[1,'📓','Caro diario',50],[10,'🔍','Conosci il nemico',250],[50,'🧭','Maestro delle abitudini',800]]
+  .forEach(a=>add('j'+a[0],'mente','log',a[0],a[1],a[2],`Annota ${a[0]} ${a[0]===1?'voglia':'voglie'} nel diario.`,a[3]));
+[[1,'⚔️','Primo boss sconfitto',200],[3,'🗡️','Cacciatore di boss',600],[6,'👑','Nessuno ti ferma',2000]]
+  .forEach(a=>add('k'+a[0],'gioco','boss',a[0],a[1],a[2],`Sconfiggi ${a[0]} boss resistendo nei giorni più duri.`,a[3]));
+[[1,'🛒','Primo acquisto',80],[5,'🧳','Collezionista di oggetti',300]]
+  .forEach(a=>add('o'+a[0],'gioco','shop',a[0],a[1],a[2],`Compra ${a[0]} ${a[0]===1?'oggetto':'oggetti'} nel negozio del gioco.`,a[3]));
+add('g7','gioco','coll',7,'🌟','Collezione completa','Raccogli tutti e 7 i pezzi della collezione.',1000);
 
 /* =====================================================================
    STATO
@@ -646,7 +839,8 @@ function defaults(){return{
   claimed:{},paid:{},achXP:0,bonusXP:0,
   collected:0,spent:0,banked:0,bankedCigs:0,bankedHours:0,
   wish:[{id:'w1',e:'☕',n:'Colazione al bar',p:5},{id:'w2',e:'🍕',n:'Pizza con gli amici',p:25},{id:'w3',e:'🎮',n:'Un videogioco nuovo',p:70},{id:'w4',e:'✈️',n:'Weekend fuori porta',p:300}],
-  attempts:[],best:0,daily:null,dailyCount:0,lastStage:0,lastLevel:1
+  attempts:[],best:0,daily:null,dailyCount:0,lastStage:0,lastLevel:1,
+  owned:{},equip:{},coinsSpent:0,bossDone:{},bossPaid:{},log:[],maxStage:0,got:[false,false,false,false,false,false,false],summoned:false
 }}
 function load(){try{const r=localStorage.getItem(KEY);if(r)return Object.assign(defaults(),JSON.parse(r))}catch(e){}return defaults()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -682,9 +876,15 @@ function C(){
   const level=Math.floor(Math.sqrt(xp/25))+1;
   return{now,ms,hours,ppc,cigsCur,cigsTotal,moneyCur,moneyTotal,lifeMin:cigsTotal*20,sf,stage,xp,level,
     lvBase:25*(level-1)**2,lvNext:25*level**2,toCollect:Math.max(0,moneyTotal-S.collected),
-    wallet:S.collected-S.spent,bought:S.wish.filter(w=>w.b).length,cravings:S.cravings};
+    wallet:S.collected-S.spent,bought:S.wish.filter(w=>w.b).length,cravings:S.cravings,coins:Math.floor(xp/10)-S.coinsSpent};
 }
-function achValue(a,c){switch(a.type){case'h':return c.hours;case'eur':return c.moneyTotal;case'cig':return c.cigsTotal;case'crav':return c.cravings;case'life':return c.lifeMin;case'col':return S.collected;case'buy':return c.bought;case'daily':return S.dailyCount}}
+const equipOf=(th=S.theme)=>S.equip[th]||{};
+const moodNow=()=>S.lastSlip&&Date.now()-S.lastSlip<864e5?'sad':'';
+function bossInfo(i,c){const[a,b,xp]=BOSS_W[i],st=c.hours<a?'next':c.hours<b?'fight':'won';
+  return{i,id:'b'+i,a,b,xp,st,ready:st==='won'&&!S.bossDone['b'+i],emo:T().bosses[i][0],name:T().bosses[i][1]}}
+const bossesReady=c=>BOSS_W.map((_,i)=>bossInfo(i,c)).filter(b=>b.ready);
+function achValue(a,c){switch(a.type){case'h':return c.hours;case'eur':return c.moneyTotal;case'cig':return c.cigsTotal;case'crav':return c.cravings;case'life':return c.lifeMin;case'col':return S.collected;case'buy':return c.bought;case'daily':return S.dailyCount;
+  case'log':return S.log.length;case'boss':return Object.keys(S.bossPaid).length;case'shop':return Object.keys(S.owned).filter(id=>!(itemById(id)||{}).special).length;case'coll':return S.got.filter(Boolean).length}}
 const unlocked=(a,c)=>achValue(a,c)>=a.target;
 function achText(a,c){const v=achValue(a,c),t=a.target,ok=v>=t;
   switch(a.type){
@@ -741,15 +941,18 @@ function eyeColor(th,s){
   if(s<5)return'#2a2a35';return s<8?'#4fd2ff':'#b07cff';
 }
 
-function avatarSVG(th,sf){
+function avatarSVG(th,sf,o={}){
   sf=clamp(sf,0,10);const s=Math.min(10,Math.floor(sf+1e-9)),u='av'+(UID++);
+  const eq=o.equip||{},sad=o.mood==='sad';
+  const pose=sad||s<3?'limp':s<5?'idle':(th==='db'||s>=7)?'power':'hips';
   const h=clamp(sf/7),m=clamp(sf/10),sl=1-clamp(sf/4),f=clamp(sf/2),wr=clamp(1-sf/3.5),bl=clamp(1-sf/2.5);
   const healthy=th==='db'?'#f7c9a0':th==='sl'?'#f2d0b4':'#eec29a';
   const skin=mix('#8f9b6c',healthy,h),skinD=mix(skin,'#3a2a1a',.4);
   const cx=100,hy=72+sl*10,R=35-(1-h)*3;
   const tTop=122+sl*8,tBot=184,shW=21+13*m,waW=16+6*m,legW=11+5*m,lx=8+5*m,footY=222;
   const O=outfit(th,s),HC=hairColor(th,s,f),HD=mix(HC,'#000000',.45),EC=eyeColor(th,s);
-  const g=[];
+  const g=[],A={cx,hy,R,tTop,tBot,shW,waW,footY,m,rh:[0,0],lw:[0,0]};
+  const IT=slot=>{const it=eq[slot]&&itemById(eq[slot]);return it?it.draw(A):''};
 
   /* sfondo: ombre e aure */
   if(th==='sl'&&s>=8){
@@ -767,7 +970,7 @@ function avatarSVG(th,sf){
     g.push(`<g class="av-aura"><path d="${flamePath(100,140,62,96,10,.26)}" fill="${col}" opacity=".22"/></g><g class="av-aura2"><path d="${flamePath(100,146,48,80,9,.2)}" fill="${col}" opacity=".3"/></g>`);}
   if(th==='fallout'&&s>=8)g.push(`<circle cx="100" cy="130" r="98" fill="url(#${u}rg)"/>`);
 
-  g.push(`<ellipse cx="100" cy="${footY+5}" rx="${38+14*m}" ry="7" fill="#000" opacity=".3"/>`);
+  g.push(`<ellipse cx="100" cy="${footY+5}" rx="${38+14*m}" ry="7" fill="#000" opacity=".3"/>`,IT('back'));
   if(th==='db'&&s===7)g.push(`<path d="M${cx-R*.8} ${hy-6} C${cx-R*1.9} ${hy+40} ${cx-R*1.4} ${hy+110} ${cx-14} ${tBot+16} L${cx-6} ${tBot+4} L${cx} ${tBot+20} L${cx+6} ${tBot+4} L${cx+14} ${tBot+16} C${cx+R*1.4} ${hy+110} ${cx+R*1.9} ${hy+40} ${cx+R*.8} ${hy-6}Z" fill="${HC}" stroke="${HD}" stroke-width="1.5"/>`);
 
   /* gambe */
@@ -778,6 +981,7 @@ function avatarSVG(th,sf){
     g.push(`<ellipse cx="${x+sd*2}" cy="${footY}" rx="${legW/2+4.5}" ry="5.5" fill="${O.shoe}" stroke="${mix(O.shoe,'#000000',.4)}" stroke-width="1"/>`);
   }
   if(O.k==='coat')for(const sd of[-1,1])g.push(`<path d="M${cx+sd*(waW-2)} ${tBot-16} L${cx+sd*(waW+12+6*m)} 214 L${cx+sd*5} 210 L${cx+sd*2} ${tBot}Z" fill="${O.top}" stroke="${O.trim}" stroke-width="1.4"/>`);
+  g.push(IT('ground'));
 
   /* collo e busto */
   g.push(`<rect x="${cx-6-m}" y="${hy+R-8}" width="${12+2*m}" height="${tTop-hy-R+16}" fill="${skin}" stroke="${skinD}" stroke-width=".8"/>`);
@@ -802,7 +1006,11 @@ function avatarSVG(th,sf){
   /* braccia */
   const aw=6.5+6.5*m;
   for(const sd of[-1,1]){
-    const p0=[cx+sd*(shW-5),tTop+8],p2=[cx+sd*(shW+5+5*m),tBot-4+sl*10],p1=[cx+sd*(shW+4+7*m),(p0[1]+p2[1])/2];
+    const p0=[cx+sd*(shW-5),tTop+8];let p1,p2;
+    if(pose==='power'&&sd>0){p2=[cx+shW+18,tTop-34];p1=[cx+shW+24,tTop+2]}
+    else if(pose==='hips'||pose==='power'){p2=[cx+sd*(waW+4),tBot-18];p1=[cx+sd*(shW+16+4*m),tTop+24]}
+    else{p2=[cx+sd*(shW+5+5*m),tBot-4+sl*10];p1=[cx+sd*(shW+4+7*m),(p0[1]+p2[1])/2]}
+    if(sd>0)A.rh=p2;else A.lw=[lerp(lerp(p0[0],p1[0],.8),lerp(p1[0],p2[0],.8),.8),lerp(lerp(p0[1],p1[1],.8),lerp(p1[1],p2[1],.8),.8)];
     const t=O.sl,c1=[lerp(p0[0],p1[0],t),lerp(p0[1],p1[1],t)],q=[lerp(p1[0],p2[0],t),lerp(p1[1],p2[1],t)],bt=[lerp(c1[0],q[0],t),lerp(c1[1],q[1],t)];
     g.push(`<path d="M${P(p0)} Q${P(p1)} ${P(p2)}" stroke="${skinD}" stroke-width="${aw+2}" stroke-linecap="round" fill="none"/><path d="M${P(p0)} Q${P(p1)} ${P(p2)}" stroke="${skin}" stroke-width="${aw}" stroke-linecap="round" fill="none"/>`);
     g.push(`<path d="M${P(p0)} Q${P(c1)} ${P(bt)}" stroke="${O.sleeve}" stroke-width="${aw+3}" stroke-linecap="round" fill="none"/>`);
@@ -811,6 +1019,7 @@ function avatarSVG(th,sf){
       g.push(`<line x1="${pa[0]}" y1="${pa[1]}" x2="${pb[0]}" y2="${pb[1]}" stroke="${O.band}" stroke-width="${aw+3}" stroke-linecap="round"/>`);}
     g.push(`<circle cx="${p2[0]}" cy="${p2[1]+2}" r="${4.8+2.6*m}" fill="${O.glove||skin}" stroke="${O.glove?'#222':skinD}" stroke-width="1"/>`);
   }
+  g.push(IT('wrist'),IT('hand'));
 
   /* capelli dietro */
   if(th==='db'){const ss=s>=5&&s!==8,k=lerp(.45,1,f)*(s===10?.85:1);
@@ -832,14 +1041,15 @@ function avatarSVG(th,sf){
     g.push(`<clipPath id="${id}"><ellipse cx="${ex}" cy="${ey}" rx="6.6" ry="7.6"/></clipPath><g clip-path="url(#${id})"><ellipse cx="${ex}" cy="${ey}" rx="6.6" ry="7.6" fill="${white}"/><circle cx="${ex+sd*.4}" cy="${ey+1}" r="4.4" fill="${mix(mix('#c9c49a',EC,h),EC,glow?1:0)}"/><circle cx="${ex+sd*.4}" cy="${ey+1}" r="2" fill="${glow?mix(EC,'#ffffff',.5):'#0b0b0b'}"/><circle cx="${ex+1.7}" cy="${ey-1.6}" r="1.5" fill="#fff"/><rect x="${ex-8}" y="${ey-9}" width="16" height="${(16*lid).toFixed(1)}" fill="${skin}"/><line x1="${ex-8}" x2="${ex+8}" y1="${(ey-9+16*lid).toFixed(1)}" y2="${(ey-9+16*lid).toFixed(1)}" stroke="${skinD}" stroke-width="1.6"/></g><ellipse cx="${ex}" cy="${ey}" rx="6.6" ry="7.6" fill="none" stroke="${skinD}" stroke-width="1"/>`);
     if(glow&&th==='sl')g.push(`<circle cx="${ex}" cy="${ey+1}" r="6" fill="${EC}" opacity=".45" filter="url(#${u}bl)"/>`);
     if(th==='sl'&&s>=8&&sd>0)g.push(`<path d="M${ex+5} ${ey} C${ex+16} ${ey-3} ${ex+22} ${ey-10} ${ex+34} ${ey-14}" stroke="${EC}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85" filter="url(#${u}bl)"/><path d="M${ex+5} ${ey} C${ex+16} ${ey-3} ${ex+22} ${ey-10} ${ex+34} ${ey-14}" stroke="#e9dcff" stroke-width="1" fill="none" stroke-linecap="round"/>`);
-    if(!(th==='db'&&s===7)){const br=lerp(-3.5,3,clamp(sf/5));
+    if(!(th==='db'&&s===7)){const br=sad?-3.5:lerp(-3.5,3,clamp(sf/5));
       g.push(`<path d="M${ex-sd*7} ${hy-8-br*.3} L${ex+sd*6} ${hy-8+br}" stroke="${th==='fallout'&&s<3?skinD:HD}" stroke-width="${2.6+m}" stroke-linecap="round"/>`);}
   }
   /* naso, bocca, guance */
   g.push(`<path d="M${cx-1} ${hy+10} q3.5 4 -1 6.5" stroke="${skinD}" stroke-width="1.3" fill="none" stroke-linecap="round"/>`);
   const my=hy+22;
-  if(sf>=6)g.push(`<path d="M${cx-9} ${my-1} Q${cx} ${my+11} ${cx+9} ${my-1} Q${cx} ${my+2} ${cx-9} ${my-1}Z" fill="#7a2230" stroke="${skinD}" stroke-width="1"/><path d="M${cx-7} ${my} Q${cx} ${my+3} ${cx+7} ${my} L${cx+6} ${my+2.5} Q${cx} ${my+4.5} ${cx-6} ${my+2.5}Z" fill="#fff"/>`);
-  else{const c=lerp(-6,7,h);g.push(`<path d="M${cx-8} ${my} Q${cx} ${my+c} ${cx+8} ${my}" stroke="${mix('#5a3a2a','#8a3a3a',h)}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`);
+  if(sad)g.push(`<path d="M${cx-18} ${hy+11} q-3.5 6 0 8.5 q3.5 -2.5 0 -8.5z" fill="#7cc8ff" stroke="#3a8ad0" stroke-width=".8"/>`);
+  if(sf>=6&&!sad)g.push(`<path d="M${cx-9} ${my-1} Q${cx} ${my+11} ${cx+9} ${my-1} Q${cx} ${my+2} ${cx-9} ${my-1}Z" fill="#7a2230" stroke="${skinD}" stroke-width="1"/><path d="M${cx-7} ${my} Q${cx} ${my+3} ${cx+7} ${my} L${cx+6} ${my+2.5} Q${cx} ${my+4.5} ${cx-6} ${my+2.5}Z" fill="#fff"/>`);
+  else{const c=sad?-6:lerp(-6,7,h);g.push(`<path d="M${cx-8} ${my} Q${cx} ${my+c} ${cx+8} ${my}" stroke="${mix('#5a3a2a','#8a3a3a',h)}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`);
     if(bl>0)g.push(`<g fill="#e8e0b8" opacity="${bl}"><rect x="${cx-4}" y="${my-3.2}" width="2.6" height="3" rx=".6"/><rect x="${cx+1.6}" y="${my-3}" width="2.4" height="2.6" rx=".6"/></g>`);}
   if(h>.65)g.push(`<g fill="#ff8a8a" opacity="${((h-.65)*1.1).toFixed(2)}"><ellipse cx="${cx-22}" cy="${hy+16}" rx="5" ry="3"/><ellipse cx="${cx+22}" cy="${hy+16}" rx="5" ry="3"/></g>`);
 
@@ -862,6 +1072,7 @@ function avatarSVG(th,sf){
   if(sf<2.5){const fo=clamp(1-sf/2.5);
     g.push(`<g opacity="${fo.toFixed(2)}" stroke="#9aa58a" stroke-width="3" fill="none" stroke-linecap="round"><path class="av-fume" d="M${cx-30} ${hy-R-6} c-6 -6 6 -10 0 -16 c-6 -6 6 -10 0 -16"/><path class="av-fume b" d="M${cx+4} ${hy-R-10} c-6 -6 6 -10 0 -16 c-6 -6 6 -10 0 -16"/><path class="av-fume c" d="M${cx+32} ${hy-R-4} c-6 -6 6 -10 0 -16 c-6 -6 6 -10 0 -16"/></g>`);}
 
+  g.push(IT('face'),IT('head'),IT('pet'));
   const defs=`<defs><radialGradient id="${u}rg"><stop offset="0" stop-color="#5dff96" stop-opacity=".45"/><stop offset="1" stop-color="#5dff96" stop-opacity="0"/></radialGradient><filter id="${u}bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter></defs>`;
   return`<svg viewBox="0 -26 200 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Personaggio">${defs}<g class="av-breath">${g.join('')}</g></svg>`;
 }
@@ -870,10 +1081,32 @@ function avatarSVG(th,sf){
    SUONI, TOAST, EFFETTI
    ===================================================================== */
 let AC;
-function beep(kind){if(!S.sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const t0=AC.currentTime;
-  const seq={click:[[880,.04]],claim:[[523,.08],[659,.08],[784,.14]],level:[[523,.1],[659,.1],[784,.1],[1046,.22]],coin:[[988,.06],[1319,.14]],evo:[[262,.16],[392,.16],[523,.16],[784,.4]],bad:[[220,.2],[165,.32]]}[kind]||[[660,.05]];
-  const type=S.theme==='fallout'?'square':S.theme==='db'?'sawtooth':'sine';let at=t0;
-  seq.forEach(([fq,d])=>{const o=AC.createOscillator(),gn=AC.createGain();o.type=type;o.frequency.value=fq;gn.gain.setValueAtTime(type==='sine'?.14:.06,at);gn.gain.exponentialRampToValueAtTime(.0008,at+d);o.connect(gn).connect(AC.destination);o.start(at);o.stop(at+d+.02);at+=d*.85})}catch(e){}}
+function tone(f,d,type,at,vol,f2){const o=AC.createOscillator(),gn=AC.createGain();o.type=type;o.frequency.setValueAtTime(f,at);if(f2)o.frequency.exponentialRampToValueAtTime(f2,at+d);
+  gn.gain.setValueAtTime(vol,at);gn.gain.exponentialRampToValueAtTime(.0008,at+d);o.connect(gn).connect(AC.destination);o.start(at);o.stop(at+d+.02)}
+/* crepitio da contatore Geiger */
+function geiger(at,d,vol){const b=AC.createBuffer(1,Math.floor(AC.sampleRate*d),AC.sampleRate),ch=b.getChannelData(0);
+  for(let i=0;i<ch.length;i++)ch[i]=Math.random()<.004?Math.random()*2-1:0;const src=AC.createBufferSource(),gn=AC.createGain();src.buffer=b;gn.gain.value=vol;src.connect(gn).connect(AC.destination);src.start(at)}
+const SFX={
+  fallout:{click:t=>tone(1400,.03,'square',t,.05),
+    claim:t=>{geiger(t,.3,.6);[660,880,1320].forEach((f,i)=>tone(f,.07,'square',t+i*.07,.05))},
+    level:t=>[523,659,784,1046].forEach((f,i)=>tone(f,.1,'square',t+i*.1,.05)),
+    coin:t=>{geiger(t,.15,.6);tone(1760,.08,'square',t+.05,.04)},
+    evo:t=>{geiger(t,1.2,.7);[262,330,392,523,659,784].forEach((f,i)=>tone(f,.14,'square',t+i*.12,.05))},
+    bad:t=>{tone(200,.25,'square',t,.06);tone(140,.4,'square',t+.22,.06)}},
+  db:{click:t=>tone(500,.06,'triangle',t,.12,900),
+    claim:t=>{tone(400,.35,'sawtooth',t,.05,1600);tone(1600,.15,'triangle',t+.3,.1)},
+    level:t=>{tone(200,.9,'sawtooth',t,.05,1200);tone(1200,.3,'triangle',t+.85,.12)},
+    coin:t=>{tone(1200,.06,'triangle',t,.12);tone(1800,.12,'triangle',t+.06,.12)},
+    evo:t=>{tone(80,1.6,'sawtooth',t,.06,900);tone(120,1.6,'square',t,.03,1400);tone(900,.6,'triangle',t+1.5,.12,1800)},
+    bad:t=>tone(400,.6,'sawtooth',t,.06,80)},
+  sl:{click:t=>tone(1800,.05,'sine',t,.08),
+    claim:t=>[1318,1760].forEach((f,i)=>{tone(f,.5,'sine',t+i*.12,.12);tone(f*2,.3,'sine',t+i*.12,.03)}),
+    level:t=>[880,1318,1760,2637].forEach((f,i)=>tone(f,.6,'sine',t+i*.1,.1)),
+    coin:t=>{tone(2093,.25,'sine',t,.1);tone(2637,.35,'sine',t+.08,.08)},
+    evo:t=>{tone(110,2,'sine',t,.2,55);[660,880,1318,1760].forEach((f,i)=>tone(f,.8,'sine',t+.4+i*.15,.1))},
+    bad:t=>{tone(440,.4,'sine',t,.12,220);tone(330,.5,'sine',t+.3,.12,160)}}
+};
+function beep(kind){if(!S.sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const set=SFX[S.theme];(set[kind]||set.click)(AC.currentTime+.01)}catch(e){}}
 function toast(e,title,text){const el=document.createElement('div');el.className='toast panel';
   el.innerHTML=`<span class="te">${e}</span><div><b>${S.theme==='sl'?'[ Sistema ] ':''}${esc(title)}</b><span class="small">${esc(text||'')}</span></div>`;
   $('toasts').appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),320)},3400)}
@@ -896,13 +1129,15 @@ function applyTheme(){
   $('lvLabel').textContent=t.lv;$('statsTitle').textContent=t.statsTitle;$('dailyTitle').textContent=t.dailyTitle;
   $('goalsTitle').textContent=t.goalsTitle;$('evoTitle').textContent=t.evoTitle;$('wishTitle').textContent=t.wishTitle;
   $('sosTitle').textContent=t.sosTitle;$('sosText').textContent=t.sosText;$('chestEmo').textContent=t.chest;
-  $('collectLabel').textContent=`${t.currency} da raccogliere`;
+  $('wardTitle').textContent=t.wardTitle;$('shopTitle').textContent=t.shopTitle;$('collTitle').textContent=t.collTitle;$('collText').textContent=t.collText;
+  $('diaryTitle').textContent=t.diaryTitle;$('bossesTitle').textContent=t.bossesTitle;
   avatarKey='';lastGoalsSig='';renderAll();
 }
 
 function renderHero(c){
-  const t=T(),key=S.theme+Math.round(c.sf*20);
-  if(key!==avatarKey){avatarKey=key;$('avatar').innerHTML=avatarSVG(S.theme,c.sf)}
+  const t=T(),eq=equipOf(),mood=moodNow(),key=S.theme+Math.round(c.sf*20)+JSON.stringify(eq)+mood;
+  if(key!==avatarKey){avatarKey=key;$('avatar').innerHTML=avatarSVG(S.theme,c.sf,{equip:eq,mood})}
+  renderHeroBoss(c);
   $('stageName').textContent=t.stages[c.stage][0];$('stageFlavor').textContent=t.stages[c.stage][1];
   $('rankChip').textContent=t.rank(c.stage,c.sf);$('formChip').textContent=t.form(c.stage);
   if(c.stage<10){$('nextEvo').hidden=false;$('nextName').textContent=t.stages[c.stage+1][0];$('nextTime').textContent='tra '+dur(TH_HOURS[c.stage+1]*3.6e6-c.ms);$('nextBar').style.width=((c.sf-c.stage)*100).toFixed(1)+'%'}
@@ -916,7 +1151,7 @@ function renderHero(c){
   const L=(x,tt)=>clamp(Math.log1p(x)/Math.log1p(tt));
   const vals=[L(c.hours,6480),L(c.hours,8760),L(c.hours,168),L(c.hours,2160),clamp(.5*L(c.hours,720)+.5*clamp(S.cravings/50))];
   $('statList').innerHTML=vals.map((v,i)=>`<div class="statrow"><span>${t.stats[i]}</span><div class="bar sm"><i style="width:${(v*100).toFixed(1)}%"></i></div><b>${t.statFmt(v)}</b></div>`).join('');
-  const n=claimable(c).length;$('pendingBox').hidden=!n;$('pendingText').textContent=`${n} ${n===1?'ricompensa ti aspetta':'ricompense ti aspettano'}`;
+  const n=claimable(c).length+bossesReady(c).length;$('pendingBox').hidden=!n;$('pendingText').textContent=`${n} ${n===1?'ricompensa ti aspetta':'ricompense ti aspettano'}`;
 }
 
 function getDaily(){const k=todayKey();if(!S.daily||S.daily.date!==k)S.daily={date:k,done:{},claimed:false};return S.daily}
@@ -928,7 +1163,60 @@ function renderDaily(){const d=getDaily();let n=0;
   const b=$('btnDaily');b.hidden=false;b.disabled=d.claimed||n<DAILY.length;
   b.textContent=d.claimed?'✔ Ricompensa ottenuta, torna domani':n<DAILY.length?'Completa tutto per +150 XP':`${T().claim} +150 XP`}
 
+function renderHeroBoss(c){
+  const all=BOSS_W.map((_,i)=>bossInfo(i,c)),b=all.find(x=>x.ready)||all.find(x=>x.st==='fight')||all.find(x=>x.st==='next'),box=$('bossBox');
+  if(!b){box.hidden=true;return}
+  box.hidden=false;box.className='panel boss '+(b.ready?'ready':b.st);$('bossEmo').textContent=b.emo;$('bossName').textContent=b.name;
+  const btn=$('btnBoss');btn.hidden=!b.ready;btn.dataset.boss=b.id;btn.textContent=`${T().claim} +${b.xp} XP`;
+  if(b.ready){$('bossKicker').textContent='Boss sconfitto!';$('bossHp').style.width='0%';$('bossText').textContent='Hai resistito per tutte le 24 ore.'}
+  else if(b.st==='fight'){$('bossKicker').textContent=`⚔ Boss fight · ${BOSS_LABEL[b.i]}`;$('bossHp').style.width=((b.b-c.hours)/(b.b-b.a)*100).toFixed(1)+'%';$('bossText').textContent=`Resisti ancora ${dur((b.b-c.hours)*3.6e6)} per sconfiggerlo`}
+  else{$('bossKicker').textContent=`Prossimo boss · ${BOSS_LABEL[b.i]}`;$('bossHp').style.width='100%';$('bossText').textContent=`Arriva tra ${dur((b.a-c.hours)*3.6e6)} e dura 24 ore`}
+}
+function renderBossList(c){
+  $('bossList').innerHTML=BOSS_W.map((_,i)=>{const b=bossInfo(i,c),done=S.bossDone[b.id];
+    const st=b.ready?'ready':done?'won':b.st==='won'?'won':b.st;
+    const info=b.ready?`<button class="btn gold sm" data-boss="${b.id}">${T().claim} +${b.xp} XP</button>`:done?'<span class="small">✔ Sconfitto</span>':b.st==='fight'?`<span class="small">⚔ In corso · ${dur((b.b-c.hours)*3.6e6)}</span>`:`<span class="small muted">tra ${dur((b.a-c.hours)*3.6e6)}</span>`;
+    return`<div class="panel bcard ${st}"><div class="be">${b.emo}</div><b>${esc(b.name)}</b><span class="small muted">${BOSS_LABEL[i]}</span>${info}</div>`}).join('');
+}
+function claimBoss(id){const c=C(),b=BOSS_W.map((_,i)=>bossInfo(i,c)).find(x=>x.id===id);if(!b||!b.ready)return;
+  S.bossDone[id]=Date.now();let gain=0;if(!S.bossPaid[id]){S.bossPaid[id]=1;S.bonusXP+=b.xp;gain=b.xp}
+  save();flash();beep('level');toast(b.emo,`${b.name} sconfitto!`,gain?`+${gain} XP`:'Sconfitto di nuovo');checkProgress();renderAll()}
+function flash(){const fl=document.createElement('div');fl.className='flash';document.body.appendChild(fl);setTimeout(()=>fl.remove(),1000)}
+
+function renderShop(c){
+  const t=T(),eq=equipOf();$('coinBal').textContent=`${int(c.coins)} ${t.currency}`;
+  $('wardAvatar').innerHTML=avatarSVG(S.theme,c.sf,{equip:eq,mood:moodNow()});
+  $('coinHelp').textContent=`Guadagni 1 moneta (${t.currency}) ogni 10 XP: dal tempo senza fumo, dagli obiettivi, dai boss e dai craving vinti. Sono separate dai risparmi veri.`;
+  $('shop').innerHTML=ITEMS[S.theme].map(it=>{const own=S.owned[it.id],on=eq[it.slot]===it.id;
+    const btn=own?`<button class="btn sm ${on?'ghost':''}" data-equip="${it.id}">${on?'Togli':'Indossa'}</button>`
+      :it.special?'<span class="small muted">Premio della collezione</span>'
+      :`<button class="btn sm gold" data-shop="${it.id}" ${c.coins>=it.price?'':'disabled'}>${it.price} ${t.currency}</button>`;
+    return`<div class="panel item ${on?'equipped':''}"><div class="ie">${it.e}</div><b>${esc(it.name)}</b><span class="small muted">${SLOTS[it.slot]}</span>${btn}</div>`}).join('');
+}
+function renderColl(){
+  const t=T();let n=0;
+  $('coll').innerHTML=t.coll.map((it,i)=>{const got=S.got[i],ready=!got&&S.maxStage>=3+i;if(got)n++;
+    return`<div class="orb ${got?'got':ready?'ready':''}" ${ready?`data-orb="${i}"`:''} title="${esc(it[1])} · ${TH_LABEL[3+i]}">${got||ready?it[0]:'?'}</div>`}).join('');
+  $('collCount').textContent=`${n}/7`;
+  const b=$('btnSummon');b.hidden=n<7;b.disabled=S.summoned;b.textContent=S.summoned?'✔ '+t.summonDone:`${t.summon} (+2000 XP)`;
+}
+const collReady=()=>S.got.some((g,i)=>!g&&S.maxStage>=3+i);
+
+function renderDiary(){
+  const L=S.log,n=L.length,won=L.filter(x=>x.won).length,trig=k=>TRIG.find(x=>x[0]===k)||TRIG[TRIG.length-1];
+  const byH=Array(24).fill(0),byT={};L.forEach(x=>{byH[new Date(x.t).getHours()]++;byT[x.trig]=(byT[x.trig]||0)+1});
+  const hmax=Math.max(...byH),peak=n?byH.indexOf(hmax):-1,top=Object.entries(byT).sort((a,b)=>b[1]-a[1]);
+  $('diaryStats').innerHTML=`<div><span class="small muted">Voglie annotate</span><b>${n}</b></div><div><span class="small muted">Vinte</span><b>${n?Math.round(won/n*100)+'%':'—'}</b></div><div><span class="small muted">Ora critica</span><b>${peak>=0?peak+':00':'—'}</b></div>`;
+  $('hourChart').innerHTML=byH.map((v,h)=>`<div class="${h===peak&&v?'peak':''}" style="height:${(v/Math.max(1,hmax)*100).toFixed(0)}%" title="${h}:00 · ${v}"></div>`).join('');
+  $('hourNote').textContent=n?`Il momento più a rischio è tra le ${peak}:00 e le ${(peak+1)%24}:00. Prepara qualcosa da fare proprio in quell'ora.`:'Annota le tue voglie: qui vedrai a che ora arrivano più spesso.';
+  $('trigChart').innerHTML=top.length?top.map(([k,v])=>{const tr=trig(k);return`<div class="trg"><span>${tr[1]} ${tr[2]}</span><div class="bar sm"><i style="width:${v/top[0][1]*100}%"></i></div><b>${v}</b></div>`}).join(''):'<p class="muted small">Ancora nessun dato.</p>';
+  $('advice').innerHTML=top.length?top.slice(0,3).map(([k])=>{const tr=trig(k);return`<div class="tip" style="text-align:left;margin-top:8px"><b>${tr[1]} ${tr[2]}</b><br><span class="small">${TRIG_TIPS[tr[0]]}</span></div>`}).join(''):'<p class="muted small">Dopo le prime voci troverai qui consigli mirati sui tuoi momenti critici.</p>';
+  $('logList').innerHTML=n?L.slice(-12).reverse().map(x=>{const tr=trig(x.trig),d=new Date(x.t);
+    return`<div class="log"><span style="font-size:22px">${tr[1]}</span><div><b>${tr[2]}</b> · ${x.won?'💪 resistito':'🚬 ceduto'}<div class="small muted">${d.toLocaleString('it-IT',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})} · intensità ${x.int}/5</div></div><button class="x" data-dellog="${x.t}" aria-label="Elimina">✕</button></div>`}).join(''):'<p class="muted small">Nessuna voce. Usa il tasto SOS o «Annota una voglia».</p>';
+}
+
 function renderGoals(c){
+  renderBossList(c);
   const all=ACH.length,claimed=ACH.filter(a=>S.claimed[a.id]).length,ready=claimable(c);
   $('goalsSummary').textContent=`${claimed}/${all} riscattati · ${ready.length} da riscattare`;$('goalsBar').style.width=(claimed/all*100)+'%';
   $('btnClaimAll').disabled=!ready.length;$('btnClaimAll').textContent=ready.length?`${T().claim} tutto (${ready.length})`:'Niente da riscattare';
@@ -968,9 +1256,9 @@ function showPreview(sf){const t=T(),s=Math.min(10,Math.floor(sf));
   $('prevAvatar').innerHTML=avatarSVG(S.theme,sf);$('prevName').textContent=t.stages[s][0];$('prevFlavor').textContent=t.stages[s][1];
   $('prevChip').textContent=t.form(s);$('prevWhen').textContent=TH_LABEL[s];}
 
-function renderBadges(c){const n=claimable(c).length;$('badgeGoals').hidden=!n;$('badgeGoals').textContent=n;$('badgeTreasure').hidden=c.toCollect<1;}
+function renderBadges(c){const n=claimable(c).length+bossesReady(c).length;$('badgeGoals').hidden=!n;$('badgeGoals').textContent=n;$('badgeTreasure').hidden=c.toCollect<1;$('badgeEvo').hidden=!collReady()}
 function renderAll(){const c=C();renderHero(c);renderDaily();renderBadges(c);
-  if(tab==='goals')renderGoals(c);if(tab==='treasure'){renderTreasure(c);renderWish(c)}if(tab==='evo')renderEvo(c)}
+  if(tab==='goals')renderGoals(c);if(tab==='treasure'){renderTreasure(c);renderWish(c)}if(tab==='evo'){renderShop(c);renderColl();renderEvo(c)}if(tab==='diary')renderDiary()}
 
 /* =====================================================================
    AZIONI
@@ -978,20 +1266,28 @@ function renderAll(){const c=C();renderHero(c);renderDaily();renderBadges(c);
 function claim(id,quiet){const a=ACH.find(x=>x.id===id),c=C();if(!a||S.claimed[id]||!unlocked(a,c))return 0;
   S.claimed[id]=Date.now();let gain=0;if(!S.paid[id]){S.paid[id]=1;S.achXP+=a.xp;gain=a.xp}
   if(!quiet){beep('claim');toast(a.ico,a.title,gain?`+${gain} XP`:'Riscattato di nuovo')}return gain}
-function showEvo(stage){const t=T();$('evoKicker').textContent=t.evoKicker;$('evoName').textContent=t.stages[stage][0];$('evoFlavor').textContent=t.stages[stage][1];
-  $('evoAvatar').innerHTML=avatarSVG(S.theme,stage+.001);open('mEvo');const fl=document.createElement('div');fl.className='flash';document.body.appendChild(fl);setTimeout(()=>fl.remove(),1000);beep('evo')}
+/* trasformazione animata: il corpo passa in modo continuo dalla forma vecchia alla nuova */
+function showEvo(stage,from){const t=T(),eq=equipOf();$('evoKicker').textContent=t.evoKicker;$('evoName').textContent=t.stages[stage][0];$('evoFlavor').textContent=t.stages[stage][1];
+  const a=Math.max(0,Math.min(stage-1,from??stage-1))+.001,b=stage+.001,t0=performance.now(),D=2200;
+  $('evoAvatar').innerHTML=avatarSVG(S.theme,a,{equip:eq});open('mEvo');beep('evo');
+  const step=now=>{const k=clamp((now-t0)/D),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    $('evoAvatar').innerHTML=avatarSVG(S.theme,lerp(a,b,e),{equip:eq});
+    if(k<1&&!$('mEvo').hidden)requestAnimationFrame(step);else flash()};
+  requestAnimationFrame(step)}
 function open(id){$(id).hidden=false}
-function close(id){$(id).hidden=true;if(id==='mSOS')stopSOS()}
+function close(id){$(id).hidden=true;if(id==='mSOS')stopSOS();
+  if(id==='mDiary'&&diaryCtx){const r=diaryCtx.relapse;diaryCtx=null;if(r)open('mRelapse');renderAll()}}
 
 function checkProgress(){const c=C();
-  if(c.stage>S.lastStage){S.lastStage=c.stage;save();if(S.setup)showEvo(c.stage)}else if(c.stage<S.lastStage){S.lastStage=c.stage;save()}
+  if(c.stage>(S.maxStage||0)){S.maxStage=c.stage;save()}
+  if(c.stage>S.lastStage){const from=S.lastStage;S.lastStage=c.stage;save();if(S.setup)showEvo(c.stage,from)}else if(c.stage<S.lastStage){S.lastStage=c.stage;save()}
   if(c.level>S.lastLevel){S.lastLevel=c.level;save();if(S.setup){beep('level');toast('⬆️',`LEVEL UP! ${T().lv} ${c.level}`,'Le tue statistiche aumentano.')}}
   else if(c.level<S.lastLevel){S.lastLevel=c.level;save()}}
 
 function restart(){const c=C();
   S.attempts.push({start:S.quitDate,end:c.now,hours:c.hours});S.best=Math.max(S.best,c.hours);
   S.banked+=c.moneyCur;S.bankedCigs+=c.cigsCur;S.bankedHours+=c.hours;S.quitDate=Date.now();S.lastSlip=Date.now();
-  ACH.filter(a=>a.cat==='salute').forEach(a=>delete S.claimed[a.id]);
+  ACH.filter(a=>a.cat==='salute').forEach(a=>delete S.claimed[a.id]);S.bossDone={};
   S.lastStage=0;prevSf=null;save();close('mRelapse');close('mSOS');beep('bad');toast('🔁','Nuovo inizio','Il timer riparte da adesso. Puoi farcela.');renderAll()}
 
 /* SOS */
@@ -1021,9 +1317,17 @@ function renderThemePick(){$('themePick').innerHTML=Object.entries(THEMES).map((
    EVENTI
    ===================================================================== */
 document.addEventListener('click',e=>{
-  const el=e.target.closest('[data-tab],[data-claim],[data-f],[data-buy],[data-del],[data-pv],[data-theme-pick],[data-ago],[data-close]');if(!el)return;
+  const el=e.target.closest('[data-tab],[data-claim],[data-f],[data-buy],[data-del],[data-pv],[data-theme-pick],[data-ago],[data-close],[data-boss],[data-shop],[data-equip],[data-orb],[data-trig],[data-out],[data-dellog]');if(!el)return;
+  const d=el.dataset;
+  if(d.boss){claimBoss(d.boss);return}
+  if(d.shop){const it=itemById(d.shop),c=C();if(it&&!S.owned[it.id]&&c.coins>=it.price){S.coinsSpent+=it.price;S.owned[it.id]=1;(S.equip[S.theme]=equipOf())[it.slot]=it.id;save();beep('coin');toast(it.e,`${it.name} acquistato!`,'Il tuo personaggio lo indossa già.');checkProgress();renderAll()}return}
+  if(d.equip){const it=itemById(d.equip),eq=(S.equip[S.theme]=equipOf());if(eq[it.slot]===it.id)delete eq[it.slot];else eq[it.slot]=it.id;save();beep('click');renderAll();return}
+  if(d.orb!==undefined){const i=+d.orb;if(!S.got[i]&&S.maxStage>=3+i){S.got[i]=true;save();beep('claim');const it=T().coll[i];toast(S.theme==='db'?'🟠':it[0],`${it[1]} trovat${S.theme==='sl'?'a':'o'}!`,`${S.got.filter(Boolean).length}/7 nella collezione`);checkProgress();renderAll()}return}
+  if(d.trig){pickTrig=d.trig;renderTrigPick();$('btnSaveLog').disabled=false;return}
+  if(d.out!==undefined){pickOut=+d.out;renderTrigPick();return}
+  if(d.dellog){S.log=S.log.filter(x=>String(x.t)!==d.dellog);save();renderDiary();return}
   if(el.dataset.tab){tab=el.dataset.tab;beep('click');document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b===el));
-    ['hero','goals','treasure','evo'].forEach(id=>$('tab-'+id).hidden=id!==tab);if(tab==='evo')prevSf=null;renderAll();window.scrollTo({top:0,behavior:'smooth'})}
+    ['hero','goals','treasure','evo','diary'].forEach(id=>$('tab-'+id).hidden=id!==tab);if(tab==='evo')prevSf=null;renderAll();window.scrollTo({top:0,behavior:'smooth'})}
   else if(el.dataset.claim){claim(el.dataset.claim);save();checkProgress();renderAll()}
   else if(el.dataset.f){filter=el.dataset.f;beep('click');renderGoals(C())}
   else if(el.dataset.buy){const w=S.wish.find(x=>x.id===el.dataset.buy),c=C();if(w&&!w.b&&c.wallet>=w.p){w.b=Date.now();S.spent+=w.p;save();beep('claim');toast(w.e,'Premio comprato!',`${w.n}: te lo sei meritato.`);checkProgress();renderAll()}}
@@ -1050,8 +1354,31 @@ $('btnSlip').onclick=()=>{S.slips++;S.lastSlip=Date.now();save();close('mRelapse
 $('btnRestart').onclick=restart;
 $('btnSOS').onclick=()=>{beep('click');startSOS()};
 $('btnTip').onclick=()=>{$('sosTip').textContent=TIPS[Math.floor(Math.random()*TIPS.length)]};
-$('btnWon').onclick=()=>{const full=sosLeft===0;S.cravings++;if(full)S.bonusXP+=25;save();close('mSOS');beep('claim');toast('🛡️','Craving respinto!',`+${full?50:25} XP · Totale vinti: ${S.cravings}`);checkProgress();renderAll()};
-$('btnLost').onclick=()=>{close('mSOS');open('mRelapse')};
+$('btnWon').onclick=()=>{const full=sosLeft===0;S.cravings++;if(full)S.bonusXP+=25;save();close('mSOS');beep('claim');toast('🛡️','Craving respinto!',`+${full?50:25} XP · Totale vinti: ${S.cravings}`);checkProgress();renderAll();openDiary({won:true})};
+$('btnLost').onclick=()=>{close('mSOS');openDiary({won:false,relapse:true})};
+
+/* diario delle voglie */
+let diaryCtx=null,pickTrig=null,pickOut=1;
+function openDiary(ctx){diaryCtx=ctx;pickTrig=null;pickOut=1;$('outcomeRow').hidden=!ctx.fromTab;$('fInt').value=3;$('intVal').textContent='3';$('btnSaveLog').disabled=true;renderTrigPick();open('mDiary')}
+function renderTrigPick(){$('trigPick').innerHTML=TRIG.map(t=>`<button type="button" data-trig="${t[0]}" class="${pickTrig===t[0]?'on':''}">${t[1]} ${t[2]}</button>`).join('');
+  document.querySelectorAll('#outPick button').forEach(b=>b.classList.toggle('on',+b.dataset.out===pickOut))}
+$('fInt').oninput=e=>$('intVal').textContent=e.target.value;
+$('btnLog').onclick=()=>{beep('click');openDiary({fromTab:true})};
+$('btnSaveLog').onclick=()=>{if(!pickTrig||!diaryCtx)return;const won=diaryCtx.fromTab?!!pickOut:diaryCtx.won;
+  S.log.push({t:Date.now(),trig:pickTrig,int:+$('fInt').value,won});
+  if(diaryCtx.fromTab){if(won){S.cravings++;toast('🛡️','Craving respinto!',`+25 XP · Totale vinti: ${S.cravings}`)}else diaryCtx.relapse=true}
+  else toast('📓','Annotato nel diario','Guarda la scheda Diario per scoprire i tuoi momenti critici.');
+  save();beep('click');checkProgress();close('mDiary')};
+$('btnBoss').onclick=e=>claimBoss(e.currentTarget.dataset.boss);
+$('btnSummon').onclick=()=>{if(S.summoned||S.got.some(g=>!g))return;const t=T();S.summoned=true;S.bonusXP+=2000;
+  ['vaultboy','shenron','igris'].forEach(id=>S.owned[id]=1);const sp=ITEMS[S.theme].find(i=>i.special);(S.equip[S.theme]=equipOf()).pet=sp.id;
+  save();flash();beep('evo');toast(sp.e,t.summonDone,'+2000 XP');checkProgress();renderAll()};
+/* tocca il personaggio: salta e parla */
+let bubbleT;
+$('heroStage').onclick=()=>{const c=C(),t=T(),box=$('heroStage'),b=$('bubble');
+  const lines=moodNow()?['Ok, ho sbagliato. Ma mi rialzo.','Oggi è dura… ma non mollo.','Un passo indietro, due avanti.']:t.lines[c.stage<3?0:c.stage<7?1:2];
+  b.textContent=lines[Math.floor(Math.random()*lines.length)];b.hidden=false;box.classList.remove('jump');void box.offsetWidth;box.classList.add('jump');beep('click');
+  clearTimeout(bubbleT);bubbleT=setTimeout(()=>b.hidden=true,2600)};
 $('pendingBox').onclick=()=>{filter='ready';document.querySelector('[data-tab=goals]').click()};
 $('btnClaimAll').onclick=()=>{const c=C();let xp=0,n=0;claimable(c).forEach(a=>{xp+=claim(a.id,true);n++});if(n){save();beep('level');toast('🎁',`${n} ricompense riscattate`,`+${int(xp)} XP`);checkProgress();renderAll()}};
 $('btnCollect').onclick=()=>{const c=C();if(c.toCollect<0.01)return;const amt=c.toCollect;S.collected+=amt;S.bonusXP+=Math.max(1,Math.floor(amt*2));save();
