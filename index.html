@@ -1075,32 +1075,16 @@ function avatarSVG(th,sf,o={}){
 
 /* ---------- il mostro della voglia (boss dell'SOS) ---------- */
 function cravingSVG(th,hp,dizzy){
-  const L=34+112*clamp(hp),bot=206,top=bot-L,fil=Math.min(40,L),pap=L-fil,X=72,W=56;
-  const acc=th==='fallout'?'#6dff8a':th==='db'?'#ff7ad9':th==='nt'?'#ff7a1a':'#b07cff',emb=th==='fallout'?['#e8ff7a','#4bff6a','#0f6a2a']:['#fff07a','#ff6a1f','#7a1a0a'];
-  const fy=top+Math.max(16,Math.min(pap*.45,60));
-  const eyes=dizzy?`<path d="M${X+12} ${fy-6} l9 9 M${X+21} ${fy-6} l-9 9 M${X+W-21} ${fy-6} l9 9 M${X+W-12} ${fy-6} l-9 9" stroke="#1a0a0a" stroke-width="3" stroke-linecap="round"/>`
-    :`<path d="M${X+9} ${fy-10} L${X+25} ${fy-4} M${X+W-9} ${fy-10} L${X+W-25} ${fy-4}" stroke="#1a0a0a" stroke-width="4" stroke-linecap="round"/><ellipse cx="${X+18}" cy="${fy+2}" rx="6" ry="6.5" fill="#fff" stroke="#1a0a0a" stroke-width="1.6"/><ellipse cx="${X+W-18}" cy="${fy+2}" rx="6" ry="6.5" fill="#fff" stroke="#1a0a0a" stroke-width="1.6"/><circle cx="${X+20}" cy="${fy+3}" r="3" fill="${th==='sl'?'#d01c3a':'#1a0a0a'}"/><circle cx="${X+W-16}" cy="${fy+3}" r="3" fill="${th==='sl'?'#d01c3a':'#1a0a0a'}"/>`;
-  const mouth=`<path d="M${X+12} ${fy+14} Q${X+W/2} ${fy+(dizzy?18:26)} ${X+W-12} ${fy+14} Q${X+W/2} ${fy+(dizzy?22:34)} ${X+12} ${fy+14}Z" fill="#3a0a10" stroke="#1a0a0a" stroke-width="1.6"/>${dizzy?'':`<path d="M${X+16} ${fy+16} l4 5 l4 -4 l4 5 l4 -5 l4 5 l4 -4 l4 4" stroke="#fff" stroke-width="2.2" fill="none" stroke-linejoin="round"/>`}`;
-  const extra=th==='db'?`<path d="M${X+W/2-7} ${top+8} v-0 l3.5 6 l3.5 -6 l3.5 6 l3.5 -6" stroke="#c0162a" stroke-width="2.6" fill="none" stroke-linejoin="round" transform="translate(-3.5 0)"/>`
-    :th==='nt'?`<g transform="translate(${X+W/2} ${bot-fil/2})" stroke="#2a0a0a" stroke-width="1.6" fill="none"><circle r="10"/><path d="M0 0 m0 -6 a6 6 0 1 1 -6 6 a4 4 0 1 1 4 -4"/><path d="M-14 0 h-6 M14 0 h6 M0 -14 v-5 M0 14 v5"/></g>`
-    :th==='sl'?`<path d="M${X+6} ${top+6} q-10 -14 -4 -26 q4 14 14 18z M${X+W-6} ${top+6} q10 -14 4 -26 q-4 14 -14 18z" fill="#2a0f3a" stroke="#b07cff" stroke-width="1.4"/>`
-    :`<g transform="translate(${X+W/2} ${bot-fil/2})"><circle r="9" fill="#1a1a0a"/><path d="M0 0 L-8 -4.6 A9.2 9.2 0 0 1 -0.1 -9.2Z M0 0 L8 -4.6 A9.2 9.2 0 0 0 0.1 -9.2Z M0 0 L-0.1 9.2 A9.2 9.2 0 0 1 -8 4.6Z" fill="#ffd23f" transform="rotate(30)"/><circle r="2.2" fill="#ffd23f"/></g>`;
+  /* immagine SpriteCook: rimpicciolisce con i danni; sconfitto si inclina, perde colore e fuma */
+  const acc=th==='fallout'?'#6dff8a':th==='db'?'#ff7ad9':th==='nt'?'#ff7a1a':'#b07cff',[r,g,b]=hex2rgb(acc).map(v=>(v/255*.8+.2).toFixed(3));
+  const u='cg'+(UID++),k=.55+.45*clamp(hp),H=224*k,W=H*.539,bot=214,x=100-W/2,y=bot-H;
+  const fx=(n,x,y,w,h,extra='')=>`<image href="sprites/fx/${n}.webp" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" preserveAspectRatio="none"${extra}/>`;
   return`<svg viewBox="0 -20 200 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Il mostro della voglia">
-<defs><linearGradient id="cgP" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#ece6da"/><stop offset="1" stop-color="#b9b0a0"/></linearGradient>
-<linearGradient id="cgF" x1="0" x2="1"><stop offset="0" stop-color="#f2a65a"/><stop offset=".6" stop-color="#d9822b"/><stop offset="1" stop-color="#9a5a1a"/></linearGradient>
-<radialGradient id="cgE" cx=".5" cy=".6"><stop offset="0" stop-color="${emb[0]}"/><stop offset=".5" stop-color="${emb[1]}"/><stop offset="1" stop-color="${emb[2]}"/></radialGradient>
-<radialGradient id="cgA" cx=".5" cy=".55" r=".55"><stop offset="0" stop-color="${acc}" stop-opacity=".55"/><stop offset="1" stop-color="${acc}" stop-opacity="0"/></radialGradient></defs>
-<ellipse cx="100" cy="${bot-L/2}" rx="95" ry="${L/2+40}" fill="url(#cgA)" class="av-aura"/>
-<ellipse cx="100" cy="${bot+6}" rx="46" ry="7" fill="#000" opacity=".35"/>
-<g stroke="#9a9a9a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"><path class="av-fume" d="M92 ${top-12} c-8 -8 8 -14 0 -22 c-8 -8 8 -14 0 -22"/><path class="av-fume b" d="M108 ${top-8} c-8 -8 8 -14 0 -22 c-8 -8 8 -14 0 -22"/><path class="av-fume c" d="M100 ${top-16} c-8 -8 8 -14 0 -22"/></g>
-<path d="M${X} ${top+20} q-22 10 -26 34 M${X+W} ${top+20} q22 10 26 34" stroke="#1a0a0a" stroke-width="5" fill="none" stroke-linecap="round"/>
-<circle cx="${X-26}" cy="${top+56}" r="7" fill="#ece6da" stroke="#1a0a0a" stroke-width="2"/><circle cx="${X+W+26}" cy="${top+56}" r="7" fill="#ece6da" stroke="#1a0a0a" stroke-width="2"/>
-${pap>0?`<rect x="${X}" y="${top}" width="${W}" height="${pap+2}" fill="url(#cgP)" stroke="#1a0a0a" stroke-width="2.4"/><path d="M${X+8} ${top+10} v${Math.max(0,pap-16)}" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/>`:''}
-<rect x="${X}" y="${bot-fil}" width="${W}" height="${fil}" rx="3" fill="url(#cgF)" stroke="#1a0a0a" stroke-width="2.4"/>
-<g fill="#7a4a12" opacity=".55"><circle cx="${X+12}" cy="${bot-fil+10}" r="1.6"/><circle cx="${X+30}" cy="${bot-fil+20}" r="1.6"/><circle cx="${X+44}" cy="${bot-fil+8}" r="1.6"/><circle cx="${X+20}" cy="${bot-12}" r="1.6"/></g>
-<rect x="${X}" y="${top-8}" width="${W}" height="10" rx="4" fill="#6a6a6a" stroke="#1a0a0a" stroke-width="2.2"/>
-<ellipse cx="100" cy="${top-9}" rx="${W/2-2}" ry="6" fill="url(#cgE)" stroke="#1a0a0a" stroke-width="2"/>
-${extra}${eyes}${mouth}
+<defs><filter id="${u}T" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${r} 0 0 0 0  0 ${g} 0 0 0  0 0 ${b} 0 0  0 0 0 1 0"/></filter><filter id="${u}D"><feColorMatrix type="saturate" values=".25"/></filter></defs>
+${dizzy?'':`<g class="av-aura" opacity=".8">${fx('aura',100-W*.95,bot+8-H*1.12,W*1.9,H*1.12,` filter="url(#${u}T)"`)}</g>`}
+<ellipse cx="100" cy="${bot+2}" rx="${W*.45}" ry="6" fill="#000" opacity=".35"/>
+<g class="av-breath"><g transform="rotate(${dizzy?-14:0} 100 ${bot})">${fx('boss',x,y,W,H,dizzy?` filter="url(#${u}D)"`:'')}</g></g>
+${dizzy?[[-W*.6,'',0],[W*.1,' b',-8],[W*.5,' c',4]].map(([dx,c,dy])=>`<g class="av-fume${c}">${fx('smoke',100+dx-6,y-30+dy,12,50)}</g>`).join(''):''}
 </svg>`;
 }
 
