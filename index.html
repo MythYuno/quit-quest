@@ -237,12 +237,15 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0}
 body[data-theme=fallout] .evomodal .rays{background:repeating-conic-gradient(from 0deg,rgba(61,255,122,.16) 0 8deg,transparent 8deg 20deg)}
 body[data-theme=sl] .evomodal .rays{background:repeating-conic-gradient(from 0deg,rgba(169,112,255,.2) 0 8deg,transparent 8deg 20deg)}
 .evomodal .avatar{width:250px;height:270px;margin:0 auto;position:relative;animation:evoin 1.2s ease}
-.av-glow{animation:glow 1.6s ease-in-out infinite alternate}
-@keyframes glow{from{opacity:.55}to{opacity:1}}
 .evomodal .avatar .evox{position:absolute;inset:0;transition:opacity 1.8s ease-in-out,filter 1.8s ease-in-out}
 .evomodal .avatar .evon{opacity:0;filter:brightness(2.4)}
 .evomodal .avatar.go .evox:first-child{opacity:0;filter:brightness(2.4)}
 .evomodal .avatar.go .evon{opacity:1;filter:none}
+.av-zap{animation:zap .9s steps(2) infinite}
+.av-zap.b{animation-delay:.45s}
+@keyframes zap{50%{opacity:0}}
+.av-shadow{animation:shadowbob 3s ease-in-out infinite}
+.av-shadow.b{animation-delay:-1.5s}
 .flash{position:fixed;inset:0;background:#fff;z-index:150;pointer-events:none;animation:flash .9s ease forwards}
 
 /* ---------- toast & monete ---------- */
@@ -1046,19 +1049,26 @@ function avatarSVG(th,sf,o={}){
     if(slot==='wrist')return`<g transform="${around(A.lw,.62)}">${d}</g>`;
     return d};
   const g=[];
-  /* bagliore: segue la sagoma dell'immagine, solo nelle forme con l'aura */
-  const glow={db:[,,,,'#ff3b3b','#ffd23f','#ffd23f','#ffd23f','#ff5a3d','#38c8ff','#dfe8ff'],sl:[,,,,,,'#2f7bff','#2f7bff','#8b5cf6','#8b5cf6','#8b5cf6'],
+  /* effetti (immagini SpriteCook in sprites/fx): aura colorata per forma, fulmini, soldati d'ombra, fumo tossico */
+  const aura={db:[,,,,'#ff3b3b','#ffd23f','#ffd23f','#ffd23f','#ff5a3d','#38c8ff','#dfe8ff'],sl:[,,,,,,'#2f7bff','#2f7bff','#8b5cf6','#8b5cf6','#8b5cf6'],
     nt:[,,,,'#ff3b2b',,'#ffcc33','#ffb020','#fff3b0',,'#ff7a1a'],fallout:[,,,,,,,,,'#5dff96','#5dff96']}[th][s];
-  const defs=`<defs>${glow?`<filter id="${u}gl" x="-40%" y="-25%" width="180%" height="150%"><feMorphology in="SourceAlpha" operator="dilate" radius="1.6" result="d"/><feGaussianBlur in="d" stdDeviation="4.5" result="b"/><feFlood flood-color="${glow}"/><feComposite operator="in" in2="b"/></filter>`:''}<filter id="${u}sd"><feColorMatrix type="saturate" values=".45"/><feComponentTransfer><feFuncR type="linear" slope=".9"/><feFuncG type="linear" slope=".92"/><feFuncB type="linear" slope="1"/></feComponentTransfer></filter></defs>`;
-  const img=extra=>`<image href="sprites/${th}/${s}.webp" x="${B.x0.toFixed(1)}" y="${B.y0.toFixed(1)}" width="${B.IW.toFixed(1)}" height="${B.IH.toFixed(1)}" preserveAspectRatio="none"${extra}/>`;
+  const fx=(n,x,y,w,h,extra='')=>`<image href="sprites/fx/${n}.webp" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" preserveAspectRatio="none"${extra}/>`;
+  const tint=c=>{const [r,gg,b]=hex2rgb(c).map(v=>(v/255*.8+.2).toFixed(3));return`<filter id="${u}au" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="${r} 0 0 0 0  0 ${gg} 0 0 0  0 0 ${b} 0 0  0 0 0 1 0"/></filter>`};
+  const defs=`<defs>${aura?tint(aura):''}<filter id="${u}sd"><feColorMatrix type="saturate" values=".45"/><feComponentTransfer><feFuncR type="linear" slope=".9"/><feFuncG type="linear" slope=".92"/><feFuncB type="linear" slope="1"/></feComponentTransfer></filter></defs>`;
+  if(th==='sl'&&s>=8){const sol=(x,h,mir,cls)=>`<g class="av-shadow ${cls}" opacity=".92"><g transform="translate(${x} 0) scale(${mir?-1:1} 1) translate(${-x} 0)">${fx('soldier',x-h*.27,SPR_FOOT+4-h,h*.539,h)}</g></g>`;
+    if(s>=9)g.push(sol(56,130,0,'b'),sol(144,130,1,''));
+    g.push(sol(30,165,0,''),sol(170,165,1,'b'));}
+  if(aura)g.push(`<g class="av-aura" opacity=".9">${fx('aura',100-72,SPR_FOOT+10-268,144,268,` filter="url(#${u}au)"`)}</g>`);
   g.push(`<ellipse cx="100" cy="${SPR_FOOT-1}" rx="${34+12*m}" ry="6" fill="#000" opacity=".32"/>`,IT('back'),IT('ground'));
 
   /* ---------- il personaggio ---------- */
-  if(glow)g.push(`<g class="av-glow">${img(` filter="url(#${u}gl)"`)}</g>`);
-  g.push(img(sad?` filter="url(#${u}sd)"`:''));
+  g.push(`<image href="sprites/${th}/${s}.webp" x="${B.x0.toFixed(1)}" y="${B.y0.toFixed(1)}" width="${B.IW.toFixed(1)}" height="${B.IH.toFixed(1)}" preserveAspectRatio="none"${sad?` filter="url(#${u}sd)"`:''}/>`);
   if(sad){const r=B.hr,x=B.hx-r*.34,y=B.hy+r*.3;
     g.push(`<path class="av-tear" d="M${x.toFixed(1)} ${y.toFixed(1)} q${(-r*.2).toFixed(1)} ${(r*.32).toFixed(1)} 0 ${(r*.46).toFixed(1)} q${(r*.2).toFixed(1)} ${(-r*.14).toFixed(1)} 0 ${(-r*.46).toFixed(1)}z" fill="#8fd0ff" stroke="#3a8ad0" stroke-width=".6"/>`);}
-
+  if(th==='db'&&(s===6||s===7||s===9))[[38,62,0,''],[146,48,1,'b'],[34,150,1,'b'],[150,136,0,'']].forEach(([x,y,mir,cls])=>
+    g.push(`<g class="av-zap ${cls}"><g transform="translate(${x+11} 0) scale(${mir?-1:1} 1) translate(${-x-11} 0)">${fx('bolt',x,y,22,30)}</g></g>`));
+  if(sf<2.5){const fo=clamp(1-sf/2.5).toFixed(2),y=B.y0-12;
+    g.push(`<g opacity="${fo}">${[[-30,'',6],[28,' b',0],[-42,' c',18]].map(([dx,c,dy])=>`<g class="av-fume${c}">${fx('smoke',B.hx+dx-5,y+dy,10,42)}</g>`).join('')}</g>`);}
   g.push(IT('wrist'),IT('hand'),IT('face'),IT('head'),IT('pet'));
   return`<svg viewBox="0 -26 200 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Personaggio">${defs}<g class="av-breath">${g.join('')}</g></svg>`;
 }
