@@ -33,7 +33,7 @@ body[data-theme=db]{
   --bar:linear-gradient(90deg,#ff7a00,#ffd23f);
   --bgfx:repeating-conic-gradient(from 0deg at 50% 16%,rgba(255,170,40,.07) 0 5deg,transparent 5deg 12deg),radial-gradient(circle at 50% 16%,#3b52c0 0%,#18215c 45%,#0a0f2c 100%);
   --overlay:none;
-  --stage:radial-gradient(ellipse at 50% 92%,#3c7a3a 0 22%,transparent 23%),radial-gradient(circle at 50% 40%,#ffe9a8 0%,#ffb35c 30%,#ff7a3d 55%,#7a3bbf 100%);
+  --stage:radial-gradient(circle at 50% 40%,#ffe9a8 0%,#ffb35c 30%,#ff7a3d 55%,#7a3bbf 100%);
 }
 body[data-theme=sl]{
   --bg:#03040b;--panel:rgba(8,15,33,.88);--panel2:rgba(58,184,255,.07);--line:rgba(78,190,255,.55);
@@ -56,7 +56,7 @@ body[data-theme=nt]{
   --bar:linear-gradient(90deg,#e2342b,#ff7a1a,#ffcc33);
   --bgfx:radial-gradient(circle at 50% -10%,rgba(255,122,26,.35),transparent 55%),radial-gradient(circle at 85% 90%,rgba(46,125,50,.25),transparent 45%);
   --overlay:none;
-  --stage:radial-gradient(ellipse at 50% 95%,#2e6b2a 0 20%,transparent 21%),radial-gradient(circle at 50% 30%,#ffe2a8 0%,#ffae5c 30%,#e2582b 60%,#5a1f3a 100%);
+  --stage:radial-gradient(circle at 50% 30%,#ffe2a8 0%,#ffae5c 30%,#e2582b 60%,#5a1f3a 100%);
 }
 body[data-theme=nt] :is(h1,h2,.big){color:var(--accent);text-shadow:2px 2px 0 #000;font-weight:400;letter-spacing:.02em}
 body[data-theme=nt] :is(h3,.head){color:var(--gold);text-shadow:2px 2px 0 #000;font-weight:400}
@@ -315,7 +315,6 @@ body[data-theme=fallout] .bubble::after{border-top-color:var(--accent)}
 body[data-theme=sl] .bubble{background:rgba(8,20,45,.96);color:var(--text);border:1px solid var(--accent);box-shadow:var(--glow)}
 body[data-theme=sl] .bubble::after{border-top-color:var(--accent)}
 .jump .avatar{animation:jump .5s ease}
-.av-pet{animation:shadowbob 2.4s ease-in-out infinite}
 
 /* ---------- boss ---------- */
 .boss{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center}
@@ -331,12 +330,6 @@ body[data-theme=sl] .bubble::after{border-top-color:var(--accent)}
 .bcard b{font-size:14px;line-height:1.15}
 
 /* ---------- armadio, negozio, collezione ---------- */
-.coins{font-family:var(--font-head);font-size:24px;color:var(--gold);white-space:nowrap}
-.shop{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-.item{padding:10px;text-align:center;display:flex;flex-direction:column;gap:5px;align-items:center}
-.item .ie{font-size:34px;line-height:1.1}
-.item b{font-size:14px;line-height:1.15}
-.item.equipped{border-color:var(--gold)!important;box-shadow:0 0 0 2px var(--gold)}
 .coll{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .orb{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:clamp(14px,3.6vw,22px);border:2px dashed var(--line);opacity:.4;background:var(--panel2);text-align:center;line-height:1}
 .orb.ready{opacity:1;border-style:solid;border-color:var(--gold);animation:pop 1.4s ease-in-out infinite;cursor:pointer}
@@ -374,7 +367,7 @@ body[data-theme=db] .orb.got,body[data-theme=db] .orb.ready{background:radial-gr
     <button class="tab on" data-tab="hero"><span class="ti">🧍</span><span class="tl"></span></button>
     <button class="tab" data-tab="goals"><span class="ti">🏆</span><span class="tl"></span><span class="badge" id="badgeGoals" hidden></span></button>
     <button class="tab" data-tab="treasure"><span class="ti">💰</span><span class="tl"></span><span class="badge" id="badgeTreasure" hidden>!</span></button>
-    <button class="tab" data-tab="evo"><span class="ti">🎒</span><span class="tl"></span><span class="badge" id="badgeEvo" hidden>!</span></button>
+    <button class="tab" data-tab="evo"><span class="ti">🧬</span><span class="tl"></span><span class="badge" id="badgeEvo" hidden>!</span></button>
     <button class="tab" data-tab="diary"><span class="ti">📓</span><span class="tl"></span></button>
   </nav>
 
@@ -503,11 +496,6 @@ body[data-theme=db] .orb.got,body[data-theme=db] .orb.ready{background:radial-gr
     <section id="tab-evo" class="evo" hidden>
       <div class="stack">
         <div class="panel">
-          <div class="row between"><h3 id="wardTitle"></h3><span class="coins" id="coinBal"></span></div>
-          <div class="stagebox" style="margin-top:10px"><div class="avatar" id="wardAvatar"></div></div>
-          <p class="small muted" id="coinHelp" style="margin:10px 0 0"></p>
-        </div>
-        <div class="panel">
           <div class="row between"><h3 id="collTitle"></h3><span class="chip" id="collCount"></span></div>
           <p class="small muted" id="collText" style="margin:4px 0 10px"></p>
           <div class="coll" id="coll"></div>
@@ -533,11 +521,6 @@ body[data-theme=db] .orb.got,body[data-theme=db] .orb.ready{background:radial-gr
         </div>
       </div>
       <div class="stack">
-        <div class="panel">
-          <h3 id="shopTitle"></h3>
-          <p class="small muted" style="margin:4px 0 12px">Compra oggetti con la moneta del gioco e falli indossare al tuo personaggio.</p>
-          <div class="shop" id="shop"></div>
-        </div>
         <div class="panel">
           <h3>Tutte le forme</h3>
           <p class="small muted" style="margin:4px 0 12px">Ogni forma si sblocca restando senza fumo. Tocca una forma per vederla in anteprima.</p>
@@ -669,11 +652,11 @@ const TH_LABEL=['Giorno 0','20 minuti','8 ore','1 giorno','3 giorni','1 settiman
 const THEMES={
   fallout:{
     label:'Fallout',logo:'☢️',title:'VAULT-TEC QUIT-O-MATIC',sub:'Sistema di decontaminazione personale',
-    tabs:['Stat','Obiettivi','Risparmi','Armadio','Diario'],currency:'tappi',claim:'Riscatta',lv:'LIVELLO',
-    wardTitle:'Armadietto del Vault',shopTitle:'Negozio di Moira',diaryTitle:'Registro del sopravvissuto',bossesTitle:'Creature della Zona',
-    collTitle:'Bobblehead S.P.E.C.I.A.L.',collText:'Trovi un bobblehead a ogni grande traguardo, da 1 giorno a 6 mesi. Completa la collezione per sbloccare Vault Boy come compagno.',
+    tabs:['Stat','Obiettivi','Risparmi','Mutazioni','Diario'],claim:'Riscatta',lv:'LIVELLO',
+    diaryTitle:'Registro del sopravvissuto',bossesTitle:'Creature della Zona',
+    collTitle:'Bobblehead S.P.E.C.I.A.L.',collText:'Trovi un bobblehead a ogni grande traguardo, da 1 giorno a 6 mesi. Completa la collezione per un premio di 2000 XP.',
     coll:[['💪','Forza'],['👁️','Percezione'],['🛡️','Resistenza'],['😎','Carisma'],['🧠','Intelligenza'],['🏃','Agilità'],['🍀','Fortuna']],
-    summon:'Completa la collezione',summonDone:'Vault Boy si è unito a te!',
+    summon:'Completa la collezione',summonDone:'Collezione S.P.E.C.I.A.L. completa!',
     bosses:[['🦂','Radscorpione Gigante'],['🪓','Re dei Raider'],['🦖','Deathclaw Alfa'],['🧟','Behemoth Super Mutante'],['🦀','Regina Mirelurk'],['🦇','Regina Scorchbeast']],
     lines:[['*coff coff* …acqua radioattiva…','Mi sento… meno putrefatto.','Grrr… sigaretta…'],['Il contatore Geiger tace. Bel segno!','Si respira meglio qui fuori.','Vault-Tec approva!'],['Nessuna radiazione può fermarmi!','Polmoni d\'acciaio, signore!','Ad Victoriam!']],
     statsTitle:'S.P.E.C.I.A.L. biologico',stats:['Resistenza','Forza','Percezione','Agilità','Intelligenza'],
@@ -700,11 +683,11 @@ const THEMES={
   },
   db:{
     label:'Dragon Ball',logo:'🐉',title:'SAIYAN QUIT TRAINING',sub:'Allenamento speciale nella Stanza dello Spirito e del Tempo',
-    tabs:['Guerriero','Imprese','Risparmi','Capsula','Diario'],currency:'zeni',claim:'Raccogli',lv:'LIVELLO',
-    wardTitle:'Capsula Corp.',shopTitle:'Negozio di Bulma',diaryTitle:'Diario di allenamento',bossesTitle:'Nemici della saga',
+    tabs:['Guerriero','Imprese','Risparmi','Trasformazioni','Diario'],claim:'Raccogli',lv:'LIVELLO',
+    diaryTitle:'Diario di allenamento',bossesTitle:'Nemici della saga',
     collTitle:'Sfere del Drago',collText:'A ogni grande traguardo, da 1 giorno a 6 mesi, trovi una sfera. Raccoglile tutte e 7 per evocare Shenron.',
     coll:[1,2,3,4,5,6,7].map(n=>['★'.repeat(n),`Sfera a ${n} ${n===1?'stella':'stelle'}`]),
-    summon:'Evoca Shenron!',summonDone:'Shenron è apparso: ora vola al tuo fianco!',
+    summon:'Evoca Shenron!',summonDone:'Shenron ha esaudito il tuo desiderio!',
     bosses:[['👽','Raditz'],['🦍','Vegeta Oozaru'],['😈','Freezer'],['🦗','Cell Perfetto'],['🍬','Majin Bu'],['🗿','Jiren']],
     lines:[['Ugh… non ho neanche il Ki per alzarmi…','*coff* …voglio un fagiolo di Balzar…','Sono solo un terrestre…'],['Sento il Ki che cresce!','Ancora un po\' di allenamento!','Kame… hame…'],['Il mio livello è oltre 9000!','Questa non è nemmeno la mia forma finale!','KAMEHAMEHA!!!']],
     statsTitle:'Statistiche di combattimento',stats:['Ki','Forza','Velocità','Resistenza','Spirito'],
@@ -731,11 +714,11 @@ const THEMES={
   },
   sl:{
     label:'Solo Leveling',logo:'🗡️',title:'SISTEMA',sub:'[ Missione: liberarsi dal fumo ]',
-    tabs:['Status','Missioni','Risparmi','Inventario','Diario'],currency:'oro',claim:'Accetta',lv:'LV.',
-    wardTitle:'Equipaggiamento',shopTitle:'Negozio del Sistema',diaryTitle:'Registro del Sistema',bossesTitle:'Boss dei dungeon',
+    tabs:['Status','Missioni','Risparmi','Ranghi','Diario'],claim:'Accetta',lv:'LV.',
+    diaryTitle:'Registro del Sistema',bossesTitle:'Boss dei dungeon',
     collTitle:'Pietre runiche',collText:'Ottieni una pietra runica a ogni grande traguardo, da 1 giorno a 6 mesi. Con tutte e 7 puoi richiamare Igris.',
     coll:[['🟦','Runa della Rapidità'],['🟥','Runa della Forza'],['🟩','Runa della Vitalità'],['🟨','Runa della Percezione'],['🟪','Runa dell\'Intelligenza'],['⬛','Runa dell\'Ombra'],['⬜','Runa del Monarca']],
-    summon:'Alzati!',summonDone:'Igris il Rosso Sangue ora ti serve.',
+    summon:'Alzati!',summonDone:'Igris il Rosso Sangue si inchina al tuo potere.',
     bosses:[['🐕','Cerbero'],['🗡️','Igris il Rosso Sangue'],['👿','Vulcan, Re dei Demoni'],['🐜','Beru, Re delle Formiche'],['🔥','Baran'],['🐉','Antares, Re dei Draghi']],
     lines:[['…sono il più debole…','*coff* Il Sistema mi sta osservando?','Non ce la faccio…'],['Level up. Lo sento.','Missione accettata.','Le statistiche salgono.'],['Alzati.','Io sono il Monarca delle Ombre.','Nessun dungeon può fermarmi.']],
     statsTitle:'Statistiche',stats:['VIT','FOR','PER','AGI','INT'],
@@ -762,11 +745,11 @@ const THEMES={
   },
   nt:{
     label:'Naruto',logo:'🍥',title:'VIA DEL NINJA',sub:'Il mio nindō: mai più una sigaretta',
-    tabs:['Ninja','Missioni','Risparmi','Borsa','Diario'],currency:'ryō',claim:'Ricevi',lv:'LIVELLO',
-    wardTitle:'Borsa del ninja',shopTitle:'Negozio di Konoha',diaryTitle:'Rotolo del ninja',bossesTitle:'Nemici del Villaggio',
+    tabs:['Ninja','Missioni','Risparmi','Cammino','Diario'],claim:'Ricevi',lv:'LIVELLO',
+    diaryTitle:'Rotolo del ninja',bossesTitle:'Nemici del Villaggio',
     collTitle:'Rotoli segreti',collText:'A ogni grande traguardo, da 1 giorno a 6 mesi, ricevi un rotolo segreto. Raccoglili tutti e 7 per stringere un legame con la Volpe a Nove Code.',
     coll:[['📜','Rotolo della Moltiplicazione'],['🌀','Rotolo del Rasengan'],['🐸','Rotolo dell\'Evocazione'],['🍃','Rotolo dell\'Eremita'],['🔥','Rotolo della Volontà del Fuoco'],['🦊','Rotolo del Sigillo'],['☯️','Rotolo dei Sei Sentieri']],
-    summon:'Stringi il legame con Kurama',summonDone:'Kurama ora combatte al tuo fianco!',
+    summon:'Stringi il legame con Kurama',summonDone:'Il legame con Kurama è stretto!',
     bosses:[['🗡️','Zabuza'],['🏜️','Gaara del Deserto'],['🐍','Orochimaru'],['🌀','Pain'],['👁️','Madara'],['🌕','Kaguya']],
     lines:[['*coff* …non ho chakra…','Voglio solo del ramen…','Non mi arrendo… credo…'],['Credici! Ce la faccio!','Il mio chakra sta tornando!','Questa è la mia via del ninja!'],['Rasengan!','Diventerò Hokage, e senza fumo!','Non torno mai indietro sulla mia parola!']],
     goalsTitle:'Missioni del ninja',evoTitle:'Il tuo cammino ninja',wishTitle:'Ricompense del Villaggio',
@@ -815,48 +798,6 @@ const TRIG_TIPS={
 };
 
 /* Oggetti del negozio: disegnati sopra il personaggio usando i suoi punti di ancoraggio */
-const SLOTS={head:'Testa',face:'Viso',hand:'Mano',wrist:'Polso',back:'Schiena',ground:'Piedi',pet:'Compagno'};
-const SOLDIER='M0 -120 C-16 -120 -20 -104 -18 -94 L-12 -88 L-30 -78 L-38 -30 L-30 0 L-22 0 L-20 -36 L-16 0 L16 0 L20 -36 L22 0 L30 0 L38 -30 L30 -78 L12 -88 L18 -94 C20 -104 16 -120 0 -120Z M-6 -122 L-14 -140 L-2 -124Z M6 -122 L14 -140 L2 -124Z';
-const pet=s=>`<g class="av-pet">${s}</g>`;
-const ITEMS={
-  fallout:[
-    {id:'pipboy',slot:'wrist',e:'📟',name:'Pip-Boy 3000',price:60,draw:A=>`<g transform="translate(${A.lw[0].toFixed(1)} ${A.lw[1].toFixed(1)})"><rect x="-8" y="-6" width="16" height="12" rx="2.5" fill="#6b6844" stroke="#2a2a1a" stroke-width="1.2"/><rect x="-5.5" y="-4" width="8" height="8" rx="1" fill="#3dff7a"/><circle cx="5" cy="-1" r="1.6" fill="#d6b24a"/><circle cx="5" cy="3" r="1.2" fill="#d6b24a"/></g>`},
-    {id:'nuka',slot:'hand',e:'🍾',name:'Nuka-Cola',price:40,draw:A=>`<g transform="translate(${A.rh[0].toFixed(1)} ${(A.rh[1]-12).toFixed(1)})"><path d="M-2.5 -12 h5 v5 q4 3 4 8 v14 q0 3 -3 3 h-7 q-3 0 -3 -3 v-14 q0 -5 4 -8z" fill="#3b1f14" stroke="#111"/><rect x="-4.5" y="1" width="9" height="7" fill="#e3242b"/><rect x="-3" y="-15" width="6" height="3" fill="#ccc"/></g>`},
-    {id:'shades',slot:'face',e:'🕶️',name:'Occhiali del Corriere',price:90,draw:A=>`<g fill="#111" stroke="#000" stroke-width="1"><rect x="${A.cx-21}" y="${A.hy-2}" width="16" height="11" rx="3"/><rect x="${A.cx+5}" y="${A.hy-2}" width="16" height="11" rx="3"/></g><path d="M${A.cx-5} ${A.hy+1} h10 M${A.cx-21} ${A.hy} L${A.cx-A.R+1} ${A.hy-2} M${A.cx+21} ${A.hy} L${A.cx+A.R-1} ${A.hy-2}" stroke="#111" stroke-width="2"/><path d="M${A.cx-18} ${A.hy+1} l5 0 M${A.cx+8} ${A.hy+1} l5 0" stroke="#fff" opacity=".45"/>`},
-    {id:'backpack',slot:'back',e:'🎒',name:'Zaino del viandante',price:120,draw:A=>`<rect x="${A.cx-A.shW-5}" y="${A.tTop-2}" width="${2*A.shW+10}" height="${A.tBot-A.tTop-14}" rx="8" fill="#5d6b3a" stroke="#2c3319" stroke-width="1.5"/><rect x="${A.cx-A.shW-2}" y="${A.tTop-12}" width="${2*A.shW+4}" height="11" rx="5.5" fill="#8a6a44" stroke="#3d2c1a"/>`},
-    {id:'hat',slot:'head',e:'🤠',name:'Cappello da cowboy',price:150,draw:A=>{const{cx,hy,R}=A;return`<path d="M${cx-R*.62} ${hy-R*.66} C${cx-R*.62} ${hy-R*1.55} ${cx+R*.62} ${hy-R*1.55} ${cx+R*.62} ${hy-R*.66}Z" fill="#7a4e28" stroke="#2e1d0e" stroke-width="1.3"/><path d="M${cx-R*.6} ${hy-R*.8} Q${cx} ${hy-R*.72} ${cx+R*.6} ${hy-R*.8}" stroke="#2e1d0e" stroke-width="3.5" fill="none"/><path d="M${cx-R*1.3} ${hy-R*.58} Q${cx} ${hy-R*.32} ${cx+R*1.3} ${hy-R*.58} Q${cx} ${hy-R*.8} ${cx-R*1.3} ${hy-R*.58}Z" fill="#6b4423" stroke="#2e1d0e" stroke-width="1.3"/>`}},
-    {id:'dog',slot:'pet',e:'🐕',name:'Dogmeat',price:400,draw:()=>pet(`<g transform="translate(30 216)"><path d="M-11 -8 v12 M-5 -7 v11 M7 -7 v11 M12 -8 v12" stroke="#6a4222" stroke-width="3.5" stroke-linecap="round"/><path d="M-15 -16 q-10 -5 -8 -15" stroke="#8a5a32" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="-14" rx="16" ry="9" fill="#8a5a32" stroke="#3a2412"/><circle cx="16" cy="-24" r="8" fill="#8a5a32" stroke="#3a2412"/><path d="M20 -23 l9 2 l-2 5 l-8 -1z" fill="#8a5a32" stroke="#3a2412"/><circle cx="28" cy="-18.5" r="1.7" fill="#111"/><path d="M11 -29 l-4 -8 l8 3z" fill="#5a3a1e"/><circle cx="18" cy="-26" r="1.4" fill="#111"/></g>`)},
-    {id:'vaultboy',slot:'pet',e:'👍',name:'Vault Boy',special:true,draw:()=>pet(`<g transform="translate(34 216)"><rect x="-7" y="-17" width="14" height="17" rx="3" fill="#2b5cab" stroke="#14315f"/><rect x="-1" y="-17" width="2" height="17" fill="#f3c234"/><circle cx="0" cy="-31" r="14" fill="#f6d2a6" stroke="#5a3a1e"/><path d="M-14 -35 q4 -15 19 -11 q9 2 9 9 q-7 -7 -15 -3z" fill="#f3c234" stroke="#b08a1a"/><circle cx="-4.5" cy="-31" r="1.7" fill="#111"/><circle cx="5" cy="-31" r="1.7" fill="#111"/><path d="M-5.5 -24 q5.5 5 11 0" stroke="#111" fill="none" stroke-width="1.6"/><path d="M7 -12 l8 -6 v-7 h3.5 v9 l-9.5 7" fill="#f6d2a6" stroke="#5a3a1e"/></g>`)}
-  ],
-  db:[
-    {id:'senzu',slot:'hand',e:'🫘',name:'Fagiolo di Balzar',price:40,draw:A=>`<ellipse cx="${(A.rh[0]+1).toFixed(1)}" cy="${(A.rh[1]-7).toFixed(1)}" rx="3.4" ry="4.4" fill="#7bd34a" stroke="#2f6d1a" transform="rotate(-25 ${(A.rh[0]+1).toFixed(1)} ${(A.rh[1]-7).toFixed(1)})"/>`},
-    {id:'scouter',slot:'face',e:'🥽',name:'Scouter',price:120,draw:A=>`<path d="M${A.cx-A.R} ${A.hy+2} L${A.cx-22} ${A.hy+2}" stroke="#ddd" stroke-width="3"/><rect x="${A.cx-A.R-5}" y="${A.hy-4}" width="7" height="14" rx="2" fill="#e0e0e0" stroke="#555"/><path d="M${A.cx-23} ${A.hy-6} h17 v13 h-17z" fill="#2fe07a" opacity=".55" stroke="#1b8a46" stroke-width="1.2"/>`},
-    {id:'staff',slot:'back',e:'🦯',name:'Bastone magico',price:150,draw:A=>{const x1=A.cx-A.shW-14,y1=A.tTop-36,x2=A.cx+A.shW+12,y2=A.tBot+12;return`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#7a0f14" stroke-width="7" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#d3212b" stroke-width="5" stroke-linecap="round"/><circle cx="${x1}" cy="${y1}" r="3.6" fill="#e8c03a"/><circle cx="${x2}" cy="${y2}" r="3.6" fill="#e8c03a"/>`}},
-    {id:'halo',slot:'head',e:'😇',name:'Aureola dell\'Aldilà',price:200,draw:A=>`<ellipse cx="${A.cx}" cy="${A.hy-A.R-26}" rx="17" ry="4.6" fill="none" stroke="#fff3a0" stroke-width="5" opacity=".5"/><ellipse cx="${A.cx}" cy="${A.hy-A.R-26}" rx="17" ry="4.6" fill="none" stroke="#ffd23f" stroke-width="3"/>`},
-    {id:'puar',slot:'pet',e:'🐱',name:'Gattino volante',price:300,draw:()=>pet(`<g transform="translate(32 172)"><path d="M0 13 q-7 10 4 16" stroke="#7fb8ff" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M-11 -6 l-3 -12 l9 6z M11 -6 l3 -12 l-9 6z" fill="#7fb8ff" stroke="#2b5b9a"/><circle r="13" fill="#7fb8ff" stroke="#2b5b9a"/><circle cx="-4.5" cy="-1" r="2" fill="#111"/><circle cx="4.5" cy="-1" r="2" fill="#111"/><path d="M-3 5 q3 3 6 0" stroke="#111" fill="none"/></g>`)},
-    {id:'nimbus',slot:'ground',e:'☁️',name:'Nuvola d\'oro',price:450,draw:A=>{const y=A.footY+7,cs=[[64,0,11],[80,-4,14],[100,-5,15],[120,-4,14],[136,0,11]];return`<g fill="#ffd23f" stroke="#e09a00" stroke-width="2">${cs.map(c=>`<circle cx="${c[0]}" cy="${y+c[1]}" r="${c[2]}"/>`).join('')}</g><g fill="#ffd23f">${cs.map(c=>`<circle cx="${c[0]}" cy="${y+c[1]}" r="${c[2]-1.6}"/>`).join('')}</g><path d="M70 ${y-6} q8 -6 16 -2" stroke="#fff6c4" stroke-width="2.5" fill="none" stroke-linecap="round"/>`}},
-    {id:'shenron',slot:'pet',e:'🐉',name:'Shenron',special:true,draw:()=>pet(`<g transform="translate(30 206)"><path d="M0 0 C-24 -10 20 -32 -2 -50 C-16 -62 6 -76 14 -72" stroke="#1d6e2a" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M0 0 C-24 -10 20 -32 -2 -50 C-16 -62 6 -76 14 -72" stroke="#3fbf4a" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M0 0 C-24 -10 20 -32 -2 -50" stroke="#e8d27a" stroke-width="2.5" fill="none" stroke-dasharray="3 3"/><circle cx="16" cy="-74" r="8.5" fill="#3fbf4a" stroke="#1d5e24"/><circle cx="19" cy="-76" r="2.2" fill="#ff2a2a"/><path d="M12 -81 l-5 -9 M18 -82 l2 -10" stroke="#e8d27a" stroke-width="2" stroke-linecap="round"/></g>`)}
-  ],
-  sl:[
-    {id:'window',slot:'head',e:'🪟',name:'Finestra del Sistema',price:60,draw:A=>pet(`<rect x="${A.cx+A.R-4}" y="${A.hy-A.R-24}" width="44" height="22" rx="2" fill="rgba(20,70,140,.65)" stroke="#4fd2ff"/><text x="${A.cx+A.R+18}" y="${A.hy-A.R-9}" font-size="8" font-weight="700" font-family="sans-serif" text-anchor="middle" fill="#cfefff">LEVEL UP!</text>`)},
-    {id:'mask',slot:'face',e:'😷',name:'Maschera da assassino',price:100,draw:A=>`<path d="M${A.cx-A.R+3} ${A.hy+10} Q${A.cx} ${A.hy+6} ${A.cx+A.R-3} ${A.hy+10} L${A.cx+A.R-8} ${A.hy+27} Q${A.cx} ${A.hy+36} ${A.cx-A.R+8} ${A.hy+27}Z" fill="#14151f" stroke="#000"/><path d="M${A.cx-A.R+6} ${A.hy+14} Q${A.cx} ${A.hy+10} ${A.cx+A.R-6} ${A.hy+14}" stroke="#3a3f60" fill="none"/>`},
-    {id:'dagger',slot:'hand',e:'🗡️',name:'Pugnale di Kasaka',price:150,draw:A=>{const[x,y]=A.rh;return`<path d="M${x} ${y-4} L${x-3.5} ${y-8} L${x} ${y-38} L${x+3.5} ${y-8}Z" fill="#a8c4ff" stroke="#3a3f8a" stroke-width="1"/><path d="M${x} ${y-10} L${x} ${y-34}" stroke="#e9f2ff" stroke-width="1"/><rect x="${x-7}" y="${y-9}" width="14" height="3.5" rx="1" fill="#2a2a3a"/>`}},
-    {id:'cape',slot:'back',e:'🧥',name:'Mantello delle Ombre',price:220,draw:A=>`<path d="M${A.cx-A.shW+2} ${A.tTop+2} Q${A.cx-A.shW-20} ${A.tBot} ${A.cx-A.shW-24} ${A.footY-2} L${A.cx+A.shW+24} ${A.footY-2} Q${A.cx+A.shW+20} ${A.tBot} ${A.cx+A.shW-2} ${A.tTop+2}Z" fill="#0d0d18" stroke="#6d28d9" stroke-width="1.6"/>`},
-    {id:'wolf',slot:'pet',e:'🐺',name:'Lupo d\'ombra',price:350,draw:()=>pet(`<g transform="translate(30 216)"><path d="M-12 -8 v12 M-5 -7 v11 M7 -7 v11 M13 -8 v12" stroke="#0b0918" stroke-width="3.5" stroke-linecap="round"/><path d="M-16 -16 q-10 -4 -12 -14" stroke="#0b0918" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="0" cy="-14" rx="17" ry="9" fill="#0b0918" stroke="#6d28d9"/><path d="M10 -18 l5 -14 l5 8 l5 -8 l2 12 l9 4 l-9 6 l-13 0z" fill="#0b0918" stroke="#6d28d9"/><circle cx="22" cy="-17" r="1.7" fill="#c4a1ff"/></g>`)},
-    {id:'crown',slot:'head',e:'👑',name:'Corona del Monarca',price:500,draw:A=>{const{cx,hy,R}=A;return`<path d="M${cx-20} ${hy-R+2} L${cx-25} ${hy-R-16} L${cx-12} ${hy-R-6} L${cx-6} ${hy-R-22} L${cx} ${hy-R-8} L${cx+6} ${hy-R-22} L${cx+12} ${hy-R-6} L${cx+25} ${hy-R-16} L${cx+20} ${hy-R+2}Z" fill="#1a1530" stroke="#a970ff" stroke-width="1.6"/><circle cx="${cx}" cy="${hy-R-3}" r="2.8" fill="#c4a1ff"/>`}},
-    {id:'igris',slot:'pet',e:'⚔️',name:'Igris',special:true,draw:()=>pet(`<g transform="translate(30 218) scale(.58)"><path d="M0 -122 q24 -24 40 -4 q-18 -6 -34 8z" fill="#c81d25"/><path d="${SOLDIER}" fill="#1c1222" stroke="#c81d25" stroke-width="2"/><ellipse cx="-6" cy="-104" rx="3.4" ry="1.6" fill="#ff5a5a"/><ellipse cx="6" cy="-104" rx="3.4" ry="1.6" fill="#ff5a5a"/><path d="M34 -60 L52 -120" stroke="#c9d3e6" stroke-width="4" stroke-linecap="round"/></g>`)}
-  ]
-};
-ITEMS.nt=[
-  {id:'kunai',slot:'hand',e:'🔪',name:'Kunai',price:40,draw:A=>{const[x,y]=A.rh;return`<path d="M${x} ${y-3} L${x-4} ${y-12} L${x} ${y-32} L${x+4} ${y-12}Z" fill="#9aa4b2" stroke="#2a2f3a" stroke-width="1"/><rect x="${x-1.6}" y="${y-3}" width="3.2" height="10" fill="#1d1d22"/><circle cx="${x}" cy="${y+9}" r="2.6" fill="none" stroke="#1d1d22" stroke-width="1.4"/>`}},
-  {id:'ramen',slot:'hand',e:'🍜',name:'Ramen di Ichiraku',price:60,draw:A=>{const[x,y]=A.rh;return`<path d="M${x-11} ${y-6} Q${x} ${y+8} ${x+11} ${y-6}Z" fill="#d23b2b" stroke="#6a1410" stroke-width="1.2"/><ellipse cx="${x}" cy="${y-6}" rx="11" ry="3" fill="#f2d28a" stroke="#6a1410" stroke-width="1"/><path d="M${x+4} ${y-8} l9 -14 M${x+7} ${y-7} l9 -13" stroke="#b07a3a" stroke-width="1.6" stroke-linecap="round"/>`}},
-  {id:'goggles',slot:'head',e:'🥽',name:'Occhialoni da Accademia',price:90,draw:A=>`<path d="M${A.cx-A.R} ${A.hy-A.R*.75} Q${A.cx} ${A.hy-A.R*.95} ${A.cx+A.R} ${A.hy-A.R*.75}" stroke="#1d2a55" stroke-width="3" fill="none"/><ellipse cx="${A.cx-10}" cy="${A.hy-A.R*.88}" rx="9" ry="6.5" fill="#7fd0ff" opacity=".85" stroke="#1d2a55" stroke-width="2"/><ellipse cx="${A.cx+10}" cy="${A.hy-A.R*.88}" rx="9" ry="6.5" fill="#7fd0ff" opacity=".85" stroke="#1d2a55" stroke-width="2"/>`},
-  {id:'scroll',slot:'back',e:'📜',name:'Rotolo gigante',price:150,draw:A=>{const x1=A.cx-A.shW-6,y1=A.tTop-8,x2=A.cx+A.shW+6,y2=A.tTop+40;return`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#7a3a1a" stroke-width="16" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e8d7a8" stroke-width="12" stroke-linecap="round"/><line x1="${(x1+x2)/2-4}" y1="${(y1+y2)/2-3}" x2="${(x1+x2)/2+4}" y2="${(y1+y2)/2+3}" stroke="#c0392b" stroke-width="14"/>`}},
-  {id:'anbu',slot:'face',e:'🦊',name:'Maschera ANBU',price:200,draw:A=>`<path d="M${A.cx-A.R+3} ${A.hy-A.R*.3} Q${A.cx} ${A.hy-A.R*.6} ${A.cx+A.R-3} ${A.hy-A.R*.3} Q${A.cx+A.R} ${A.hy+A.R*.6} ${A.cx} ${A.hy+A.R*.95} Q${A.cx-A.R} ${A.hy+A.R*.6} ${A.cx-A.R+3} ${A.hy-A.R*.3}Z" fill="#f4f2ea" stroke="#5a5a5a" stroke-width="1.4"/><path d="M${A.cx-17} ${A.hy+2} l9 -3 M${A.cx+17} ${A.hy+2} l-9 -3" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/><path d="M${A.cx-14} ${A.hy+10} q4 4 8 0 M${A.cx+6} ${A.hy+10} q4 4 8 0 M${A.cx-4} ${A.hy+22} h8" stroke="#c0392b" stroke-width="1.8" fill="none"/>`},
-  {id:'frog',slot:'pet',e:'🐸',name:'Rospo evocato',price:300,draw:()=>pet(`<g transform="translate(32 214)"><ellipse cx="0" cy="-10" rx="15" ry="11" fill="#ff8a2a" stroke="#7a3a10" stroke-width="1.4"/><circle cx="-7" cy="-20" r="5" fill="#ff8a2a" stroke="#7a3a10"/><circle cx="7" cy="-20" r="5" fill="#ff8a2a" stroke="#7a3a10"/><circle cx="-7" cy="-20" r="2.2" fill="#111"/><circle cx="7" cy="-20" r="2.2" fill="#111"/><path d="M-8 -6 q8 6 16 0" stroke="#7a3a10" stroke-width="1.4" fill="none"/><path d="M-14 -2 q-4 4 -8 3 M14 -2 q4 4 8 3" stroke="#7a3a10" stroke-width="2.6" stroke-linecap="round"/><path d="M-2 -12 l4 0" stroke="#4a8ad0" stroke-width="2"/></g>`)},
-  {id:'kurama',slot:'pet',e:'🦊',name:'Kurama',special:true,draw:()=>pet(`<g transform="translate(32 212)"><g stroke="#a8380a" stroke-width="1.2">${[-40,-20,0,20,40].map(a=>`<path d="M0 -10 q${a*.6} -24 ${a*.9} -36 q-4 14 -${a*.2} 30" fill="#ff7a1a" transform="rotate(${a/3})"/>`).join('')}</g><ellipse cx="0" cy="-8" rx="14" ry="10" fill="#ff7a1a" stroke="#a8380a" stroke-width="1.4"/><path d="M-10 -22 l-4 -10 l9 5z M10 -22 l4 -10 l-9 5z" fill="#ff7a1a" stroke="#a8380a"/><ellipse cx="0" cy="-20" rx="11" ry="8" fill="#ff7a1a" stroke="#a8380a" stroke-width="1.4"/><path d="M-6 -21 l3 1 M6 -21 l-3 1" stroke="#d0141c" stroke-width="2.2" stroke-linecap="round"/><path d="M-3 -15 q3 2 6 0" stroke="#5a1a00" stroke-width="1.2" fill="none"/></g>`)}
-];
-const itemById=id=>Object.values(ITEMS).flat().find(i=>i.id===id);
 
 /* =====================================================================
    OBIETTIVI
@@ -896,8 +837,6 @@ add('buy3','soldi','buy',3,'🛍️','Premiarsi è giusto','Compra 3 premi con i
   .forEach(a=>add('j'+a[0],'mente','log',a[0],a[1],a[2],`Annota ${a[0]} ${a[0]===1?'voglia':'voglie'} nel diario.`,a[3]));
 [[1,'⚔️','Primo boss sconfitto',200],[3,'🗡️','Cacciatore di boss',600],[6,'👑','Nessuno ti ferma',2000]]
   .forEach(a=>add('k'+a[0],'gioco','boss',a[0],a[1],a[2],`Sconfiggi ${a[0]} boss resistendo nei giorni più duri.`,a[3]));
-[[1,'🛒','Primo acquisto',80],[5,'🧳','Collezionista di oggetti',300]]
-  .forEach(a=>add('o'+a[0],'gioco','shop',a[0],a[1],a[2],`Compra ${a[0]} ${a[0]===1?'oggetto':'oggetti'} nel negozio del gioco.`,a[3]));
 add('g7','gioco','coll',7,'🌟','Collezione completa','Raccogli tutti e 7 i pezzi della collezione.',1000);
 
 /* =====================================================================
@@ -912,7 +851,7 @@ function defaults(){return{
   collected:0,spent:0,banked:0,bankedCigs:0,bankedHours:0,
   wish:[{id:'w1',e:'☕',n:'Colazione al bar',p:5},{id:'w2',e:'🍕',n:'Pizza con gli amici',p:25},{id:'w3',e:'🎮',n:'Un videogioco nuovo',p:70},{id:'w4',e:'✈️',n:'Weekend fuori porta',p:300}],
   attempts:[],best:0,daily:null,dailyCount:0,lastStage:0,lastLevel:1,
-  owned:{},equip:{},coinsSpent:0,bossDone:{},bossPaid:{},log:[],maxStage:0,got:[false,false,false,false,false,false,false],summoned:false
+  bossDone:{},bossPaid:{},log:[],maxStage:0,got:[false,false,false,false,false,false,false],summoned:false
 }}
 function load(){try{const r=localStorage.getItem(KEY);if(r)return Object.assign(defaults(),JSON.parse(r))}catch(e){}return defaults()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -948,15 +887,14 @@ function C(){
   const level=Math.floor(Math.sqrt(xp/25))+1;
   return{now,ms,hours,ppc,cigsCur,cigsTotal,moneyCur,moneyTotal,lifeMin:cigsTotal*20,sf,stage,xp,level,
     lvBase:25*(level-1)**2,lvNext:25*level**2,toCollect:Math.max(0,moneyTotal-S.collected),
-    wallet:S.collected-S.spent,bought:S.wish.filter(w=>w.b).length,cravings:S.cravings,coins:Math.floor(xp/10)-S.coinsSpent};
+    wallet:S.collected-S.spent,bought:S.wish.filter(w=>w.b).length,cravings:S.cravings};
 }
-const equipOf=(th=S.theme)=>S.equip[th]||{};
 const moodNow=()=>S.lastSlip&&Date.now()-S.lastSlip<864e5?'sad':'';
 function bossInfo(i,c){const[a,b,xp]=BOSS_W[i],st=c.hours<a?'next':c.hours<b?'fight':'won';
   return{i,id:'b'+i,a,b,xp,st,ready:st==='won'&&!S.bossDone['b'+i],emo:T().bosses[i][0],name:T().bosses[i][1]}}
 const bossesReady=c=>BOSS_W.map((_,i)=>bossInfo(i,c)).filter(b=>b.ready);
 function achValue(a,c){switch(a.type){case'h':return c.hours;case'eur':return c.moneyTotal;case'cig':return c.cigsTotal;case'crav':return c.cravings;case'life':return c.lifeMin;case'col':return S.collected;case'buy':return c.bought;
-  case'log':return S.log.length;case'boss':return Object.keys(S.bossPaid).length;case'shop':return Object.keys(S.owned).filter(id=>!(itemById(id)||{}).special).length;case'coll':return S.got.filter(Boolean).length}}
+  case'log':return S.log.length;case'boss':return Object.keys(S.bossPaid).length;case'coll':return S.got.filter(Boolean).length}}
 const unlocked=(a,c)=>achValue(a,c)>=a.target;
 function achText(a,c){const v=achValue(a,c),t=a.target,ok=v>=t;
   switch(a.type){
@@ -974,80 +912,69 @@ const claimable=c=>ACH.filter(a=>!S.claimed[a.id]&&unlocked(a,c));
    ===================================================================== */
 let UID=0;
 /* ancore di ogni immagine, in frazioni dell'immagine ritagliata:
-   ar = larghezza/altezza, hx/head/hr = centro e raggio della testa, sh/shW = linea e mezza larghezza delle spalle,
-   lh/rh = mano a sinistra e a destra di chi guarda, k = correzione di scala (capelli molto alti) */
+   ar = larghezza/altezza, hx/head/hr = centro e raggio della testa (per lacrima e fumo) */
 const SPR={
   fallout:[
-    {ar:0.352,neck:0.139,head:0.071,hx:0.565,hr:0.068,sh:0.179,shW:0.257,lh:[0.032,0.561],rh:[0.973,0.561]},
-    {ar:0.352,neck:0.142,head:0.074,hx:0.563,hr:0.068,sh:0.177,shW:0.255,lh:[0.031,0.559],rh:[0.975,0.559]},
-    {ar:0.355,neck:0.133,head:0.064,hx:0.567,hr:0.069,sh:0.173,shW:0.257,lh:[0.031,0.56],rh:[0.975,0.56]},
-    {ar:0.363,neck:0.132,head:0.063,hx:0.569,hr:0.069,sh:0.186,shW:0.268,lh:[0.043,0.513],rh:[0.976,0.513]},
-    {ar:0.366,neck:0.128,head:0.059,hx:0.562,hr:0.069,sh:0.184,shW:0.271,lh:[0.046,0.51],rh:[0.976,0.51]},
-    {ar:0.363,neck:0.141,head:0.073,hx:0.565,hr:0.068,sh:0.194,shW:0.253,lh:[0.057,0.56],rh:[0.976,0.56]},
-    {ar:0.37,neck:0.14,head:0.071,hx:0.569,hr:0.068,sh:0.184,shW:0.264,lh:[0.069,0.562],rh:[0.976,0.562]},
-    {ar:0.374,neck:0.14,head:0.071,hx:0.568,hr:0.068,sh:0.154,shW:0.272,lh:[0.06,0.51],rh:[0.977,0.51]},
-    {ar:0.445,neck:0.112,head:0.07,hx:0.554,hr:0.068,sh:0.125,shW:0.279,lh:[0.057,0.502],rh:[0.98,0.502]},
-    {ar:0.549,neck:0.08,head:0.085,hx:0.48,hr:0.062,sh:0.14,shW:0.38,lh:[0.12,0.6],rh:[0.87,0.6]},
-    {ar:0.548,neck:0.085,head:0.078,hx:0.53,hr:0.06,sh:0.13,shW:0.38,lh:[0.13,0.62],rh:[0.88,0.62]}
+    {ar:0.352,hx:0.565,head:0.071,hr:0.068},
+    {ar:0.352,hx:0.563,head:0.074,hr:0.068},
+    {ar:0.355,hx:0.567,head:0.064,hr:0.069},
+    {ar:0.363,hx:0.569,head:0.063,hr:0.069},
+    {ar:0.366,hx:0.562,head:0.059,hr:0.069},
+    {ar:0.363,hx:0.565,head:0.073,hr:0.068},
+    {ar:0.37,hx:0.569,head:0.071,hr:0.068},
+    {ar:0.374,hx:0.568,head:0.071,hr:0.068},
+    {ar:0.445,hx:0.554,head:0.07,hr:0.068},
+    {ar:0.549,hx:0.48,head:0.085,hr:0.062},
+    {ar:0.548,hx:0.53,head:0.078,hr:0.06}
   ],
   db:[
-    {ar:0.323,neck:0.194,head:0.13,hx:0.476,hr:0.064,sh:0.214,shW:0.233,lh:[0.031,0.592],rh:[0.937,0.592]},
-    {ar:0.32,neck:0.201,head:0.138,hx:0.476,hr:0.063,sh:0.221,shW:0.22,lh:[0.024,0.592],rh:[0.942,0.592]},
-    {ar:0.321,neck:0.201,head:0.138,hx:0.474,hr:0.063,sh:0.217,shW:0.216,lh:[0.024,0.592],rh:[0.939,0.592]},
-    {ar:0.326,neck:0.196,head:0.133,hx:0.481,hr:0.064,sh:0.225,shW:0.244,lh:[0.03,0.517],rh:[0.946,0.517]},
-    {ar:0.467,neck:0.196,head:0.133,hx:0.486,hr:0.064,sh:0.223,shW:0.173,lh:[0.017,0.48],rh:[0.975,0.48]},
-    {ar:0.366,neck:0.186,head:0.121,hx:0.489,hr:0.065,sh:0.223,shW:0.221,lh:[0.024,0.458],rh:[0.976,0.458]},
-    {ar:0.368,neck:0.194,head:0.13,hx:0.489,hr:0.064,sh:0.227,shW:0.22,lh:[0.024,0.455],rh:[0.976,0.455]},
-    {ar:0.536,neck:0.092,head:0.13,hx:0.52,hr:0.064,sh:0.2,shW:0.21,lh:[0.25,0.57],rh:[0.78,0.57]},
-    {ar:0.32,neck:0.192,head:0.128,hx:0.473,hr:0.064,sh:0.217,shW:0.213,lh:[0.027,0.594],rh:[0.939,0.594]},
-    {ar:0.32,neck:0.195,head:0.131,hx:0.474,hr:0.064,sh:0.218,shW:0.216,lh:[0.03,0.594],rh:[0.939,0.594]},
-    {ar:0.32,neck:0.186,head:0.121,hx:0.474,hr:0.065,sh:0.227,shW:0.233,lh:[0.027,0.594],rh:[0.939,0.594]}
+    {ar:0.323,hx:0.476,head:0.13,hr:0.064},
+    {ar:0.32,hx:0.476,head:0.138,hr:0.063},
+    {ar:0.321,hx:0.474,head:0.138,hr:0.063},
+    {ar:0.326,hx:0.481,head:0.133,hr:0.064},
+    {ar:0.467,hx:0.486,head:0.133,hr:0.064},
+    {ar:0.366,hx:0.489,head:0.121,hr:0.065},
+    {ar:0.368,hx:0.489,head:0.13,hr:0.064},
+    {ar:0.536,hx:0.52,head:0.13,hr:0.064},
+    {ar:0.32,hx:0.473,head:0.128,hr:0.064},
+    {ar:0.32,hx:0.474,head:0.131,hr:0.064},
+    {ar:0.32,hx:0.474,head:0.121,hr:0.065}
   ],
   sl:[
-    {ar:0.352,neck:0.133,head:0.089,hx:0.499,hr:0.069,sh:0.193,shW:0.259,lh:[0.024,0.479],rh:[0.967,0.479]},
-    {ar:0.351,neck:0.133,head:0.089,hx:0.497,hr:0.069,sh:0.195,shW:0.265,lh:[0.022,0.477],rh:[0.972,0.477]},
-    {ar:0.338,neck:0.132,head:0.088,hx:0.496,hr:0.069,sh:0.19,shW:0.264,lh:[0.023,0.475],rh:[0.971,0.475]},
-    {ar:0.33,neck:0.135,head:0.091,hx:0.494,hr:0.069,sh:0.188,shW:0.271,lh:[0.024,0.505],rh:[0.97,0.505]},
-    {ar:0.328,neck:0.133,head:0.089,hx:0.494,hr:0.069,sh:0.188,shW:0.269,lh:[0.024,0.506],rh:[0.97,0.506]},
-    {ar:0.328,neck:0.134,head:0.09,hx:0.493,hr:0.069,sh:0.188,shW:0.266,lh:[0.024,0.504],rh:[0.97,0.504]},
-    {ar:0.338,neck:0.135,head:0.091,hx:0.491,hr:0.069,sh:0.188,shW:0.262,lh:[0.023,0.505],rh:[0.971,0.505]},
-    {ar:0.415,neck:0.13,head:0.086,hx:0.491,hr:0.069,sh:0.169,shW:0.215,lh:[0.089,0.502],rh:[0.901,0.502]},
-    {ar:0.413,neck:0.132,head:0.088,hx:0.492,hr:0.069,sh:0.169,shW:0.214,lh:[0.09,0.502],rh:[0.903,0.502]},
-    {ar:0.409,neck:0.133,head:0.089,hx:0.495,hr:0.069,sh:0.164,shW:0.218,lh:[0.18,0.6],rh:[0.82,0.6]},
-    {ar:0.734,neck:0.131,head:0.087,hx:0.497,hr:0.069,sh:0.152,shW:0.142,lh:[0.33,0.58],rh:[0.69,0.58]}
+    {ar:0.352,hx:0.499,head:0.089,hr:0.069},
+    {ar:0.351,hx:0.497,head:0.089,hr:0.069},
+    {ar:0.338,hx:0.496,head:0.088,hr:0.069},
+    {ar:0.33,hx:0.494,head:0.091,hr:0.069},
+    {ar:0.328,hx:0.494,head:0.089,hr:0.069},
+    {ar:0.328,hx:0.493,head:0.09,hr:0.069},
+    {ar:0.338,hx:0.491,head:0.091,hr:0.069},
+    {ar:0.415,hx:0.491,head:0.086,hr:0.069},
+    {ar:0.413,hx:0.492,head:0.088,hr:0.069},
+    {ar:0.409,hx:0.495,head:0.089,hr:0.069},
+    {ar:0.734,hx:0.497,head:0.087,hr:0.069}
   ],
   nt:[
-    {ar:0.323,neck:0.191,head:0.075,hx:0.492,hr:0.062,sh:0.21,shW:0.192,lh:[0.052,0.581],rh:[0.935,0.581]},
-    {ar:0.321,neck:0.194,head:0.078,hx:0.492,hr:0.062,sh:0.214,shW:0.191,lh:[0.052,0.585],rh:[0.933,0.585]},
-    {ar:0.322,neck:0.151,head:0.083,hx:0.483,hr:0.067,sh:0.239,shW:0.337,lh:[0.024,0.515],rh:[0.97,0.515]},
-    {ar:0.32,neck:0.151,head:0.083,hx:0.483,hr:0.067,sh:0.239,shW:0.338,lh:[0.024,0.516],rh:[0.969,0.516]},
-    {ar:0.319,neck:0.153,head:0.086,hx:0.485,hr:0.067,sh:0.24,shW:0.339,lh:[0.028,0.516],rh:[0.972,0.516]},
-    {ar:0.346,neck:0.153,head:0.085,hx:0.483,hr:0.067,sh:0.239,shW:0.312,lh:[0.054,0.543],rh:[0.929,0.543]},
-    {ar:0.322,neck:0.161,head:0.095,hx:0.489,hr:0.067,sh:0.236,shW:0.324,lh:[0.024,0.543],rh:[0.97,0.543]},
-    {ar:0.539,neck:0.154,head:0.087,hx:0.495,hr:0.067,sh:0.241,shW:0.212,lh:[0.24,0.6],rh:[0.76,0.6]},
-    {ar:0.538,neck:0.162,head:0.096,hx:0.5,hr:0.066,sh:0.17,shW:0.2,lh:[0.22,0.6],rh:[0.78,0.6]},
-    {ar:0.548,neck:0.141,head:0.073,hx:0.495,hr:0.068,sh:0.219,shW:0.186,lh:[0.28,0.58],rh:[0.72,0.58]},
-    {ar:0.51,neck:0.152,head:0.085,hx:0.499,hr:0.067,sh:0.226,shW:0.215,lh:[0.22,0.53],rh:[0.78,0.53]}
+    {ar:0.323,hx:0.492,head:0.075,hr:0.062},
+    {ar:0.321,hx:0.492,head:0.078,hr:0.062},
+    {ar:0.322,hx:0.483,head:0.083,hr:0.067},
+    {ar:0.32,hx:0.483,head:0.083,hr:0.067},
+    {ar:0.319,hx:0.485,head:0.086,hr:0.067},
+    {ar:0.346,hx:0.483,head:0.085,hr:0.067},
+    {ar:0.322,hx:0.489,head:0.095,hr:0.067},
+    {ar:0.539,hx:0.495,head:0.087,hr:0.067},
+    {ar:0.538,hx:0.5,head:0.096,hr:0.066},
+    {ar:0.548,hx:0.495,head:0.073,hr:0.068},
+    {ar:0.51,hx:0.499,head:0.085,hr:0.067}
   ]
 };
 const SPR_H=236,SPR_FOOT=226;
-/* posizione dell'immagine nel viewBox e ancore per gli oggetti del negozio */
-function spriteBox(th,s){const K=SPR[th][s],IH=SPR_H*(K.k||1),IW=IH*K.ar,x0=100-IW/2,y0=SPR_FOOT-IH,X=v=>x0+v*IW,Y=v=>y0+v*IH;
-  const hr=K.hr*IH,sh=Y(K.sh),shW=K.shW*IW;
-  return{x0,y0,IW,IH,hx:X(K.hx),hy:Y(K.head)+hr*.22,hr,sh,shW,lh:[X(K.lh[0]),Y(K.lh[1])],rh:[X(K.rh[0]),Y(K.rh[1])]}}
+/* posizione dell'immagine nel viewBox */
+function spriteBox(th,s){const K=SPR[th][s],IH=SPR_H,IW=IH*K.ar,x0=100-IW/2,y0=SPR_FOOT-IH,hr=K.hr*IH;
+  return{x0,y0,IW,IH,hx:x0+K.hx*IW,hy:y0+K.head*IH+hr*.22,hr}}
 
 function avatarSVG(th,sf,o={}){
   sf=clamp(sf,0,10);const s=Math.min(10,Math.floor(sf+1e-9)),u='av'+(UID++);
-  const eq=o.equip||{},sad=o.mood==='sad',m=clamp(sf/10),B=spriteBox(th,s);
-  /* gli oggetti sono disegnati per una testa virtuale (100,70) di raggio 36: qui li si riporta sulla testa vera */
-  const A={cx:100,hy:70,R:36,tTop:B.sh,tBot:B.sh+B.IH*.27,shW:B.shW,waW:B.shW*.72,footY:SPR_FOOT-4,m,rh:B.rh,lw:[B.lh[0],B.lh[1]-B.IH*.035]};
-  const headT=`translate(${B.hx.toFixed(1)} ${B.hy.toFixed(1)}) scale(${(B.hr/36).toFixed(3)}) translate(-100 -70)`;
-  const around=(p,k)=>`translate(${p[0].toFixed(1)} ${p[1].toFixed(1)}) scale(${k}) translate(${(-p[0]).toFixed(1)} ${(-p[1]).toFixed(1)})`;
-  const IT=slot=>{const it=eq[slot]&&itemById(eq[slot]);if(!it)return'';const d=it.draw(A);
-    if(slot==='head'||slot==='face')return`<g transform="${headT}">${it.draw(Object.assign({},A,{tTop:124,tBot:184}))}</g>`;
-    if(slot==='hand')return`<g transform="${around(B.rh,.72)}">${d}</g>`;
-    if(slot==='wrist')return`<g transform="${around(A.lw,.62)}">${d}</g>`;
-    return d};
+  const sad=o.mood==='sad',m=clamp(sf/10),B=spriteBox(th,s);
   const g=[];
   /* effetti (immagini SpriteCook in sprites/fx): aura colorata per forma, fulmini, soldati d'ombra, fumo tossico */
   const aura={db:[,,,,'#ff3b3b','#ffd23f','#ffd23f','#ffd23f','#ff5a3d','#38c8ff','#dfe8ff'],sl:[,,,,,,'#2f7bff','#2f7bff','#8b5cf6','#8b5cf6','#8b5cf6'],
@@ -1059,7 +986,7 @@ function avatarSVG(th,sf,o={}){
     if(s>=9)g.push(sol(56,130,0,'b'),sol(144,130,1,''));
     g.push(sol(30,165,0,''),sol(170,165,1,'b'));}
   if(aura)g.push(`<g class="av-aura" opacity=".9">${fx('aura',100-72,SPR_FOOT+10-268,144,268,` filter="url(#${u}au)"`)}</g>`);
-  g.push(`<ellipse cx="100" cy="${SPR_FOOT-1}" rx="${34+12*m}" ry="6" fill="#000" opacity=".32"/>`,IT('back'),IT('ground'));
+  g.push(`<ellipse cx="100" cy="${SPR_FOOT-1}" rx="${34+12*m}" ry="6" fill="#000" opacity=".32"/>`);
 
   /* ---------- il personaggio ---------- */
   g.push(`<image href="sprites/${th}/${s}.webp" x="${B.x0.toFixed(1)}" y="${B.y0.toFixed(1)}" width="${B.IW.toFixed(1)}" height="${B.IH.toFixed(1)}" preserveAspectRatio="none"${sad?` filter="url(#${u}sd)"`:''}/>`);
@@ -1069,7 +996,6 @@ function avatarSVG(th,sf,o={}){
     g.push(`<g class="av-zap ${cls}"><g transform="translate(${x+11} 0) scale(${mir?-1:1} 1) translate(${-x-11} 0)">${fx('bolt',x,y,22,30)}</g></g>`));
   if(sf<2.5){const fo=clamp(1-sf/2.5).toFixed(2),y=B.y0-12;
     g.push(`<g opacity="${fo}">${[[-30,'',6],[28,' b',0],[-42,' c',18]].map(([dx,c,dy])=>`<g class="av-fume${c}">${fx('smoke',B.hx+dx-5,y+dy,10,42)}</g>`).join('')}</g>`);}
-  g.push(IT('wrist'),IT('hand'),IT('face'),IT('head'),IT('pet'));
   return`<svg viewBox="0 -26 200 264" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Personaggio">${defs}<g class="av-breath">${g.join('')}</g></svg>`;
 }
 
@@ -1147,14 +1073,14 @@ function applyTheme(){
   $('lvLabel').textContent=t.lv;$('statsTitle').textContent=t.statsTitle;
   $('goalsTitle').textContent=t.goalsTitle;$('evoTitle').textContent=t.evoTitle;$('wishTitle').textContent=t.wishTitle;
   $('chestEmo').textContent=t.chest;
-  $('wardTitle').textContent=t.wardTitle;$('shopTitle').textContent=t.shopTitle;$('collTitle').textContent=t.collTitle;$('collText').textContent=t.collText;
+  $('collTitle').textContent=t.collTitle;$('collText').textContent=t.collText;
   $('diaryTitle').textContent=t.diaryTitle;$('bossesTitle').textContent=t.bossesTitle;
   avatarKey='';lastGoalsSig='';renderAll();
 }
 
 function renderHero(c){
-  const t=T(),eq=equipOf(),mood=moodNow(),key=S.theme+Math.round(c.sf*20)+JSON.stringify(eq)+mood;
-  if(key!==avatarKey){avatarKey=key;$('avatar').innerHTML=avatarSVG(S.theme,c.sf,{equip:eq,mood})}
+  const t=T(),mood=moodNow(),key=S.theme+Math.round(c.sf*20)+mood;
+  if(key!==avatarKey){avatarKey=key;$('avatar').innerHTML=avatarSVG(S.theme,c.sf,{mood})}
   renderHeroBoss(c);
   $('stageName').textContent=t.stages[c.stage][0];$('stageFlavor').textContent=t.stages[c.stage][1];
   $('rankChip').textContent=t.rank(c.stage,c.sf);$('formChip').textContent=t.form(c.stage);
@@ -1193,16 +1119,6 @@ function claimBoss(id){const c=C(),b=BOSS_W.map((_,i)=>bossInfo(i,c)).find(x=>x.
   save();flash();beep('level');toast(b.emo,`${b.name} sconfitto!`,gain?`+${gain} XP`:'Sconfitto di nuovo');checkProgress();renderAll()}
 function flash(){const fl=document.createElement('div');fl.className='flash';document.body.appendChild(fl);setTimeout(()=>fl.remove(),1000)}
 
-function renderShop(c){
-  const t=T(),eq=equipOf();$('coinBal').textContent=`${int(c.coins)} ${t.currency}`;
-  $('wardAvatar').innerHTML=avatarSVG(S.theme,c.sf,{equip:eq,mood:moodNow()});
-  $('coinHelp').textContent=`Guadagni 1 moneta (${t.currency}) ogni 10 XP: dal tempo senza fumo, dagli obiettivi, dai boss e dai craving vinti. Sono separate dai risparmi veri.`;
-  $('shop').innerHTML=ITEMS[S.theme].map(it=>{const own=S.owned[it.id],on=eq[it.slot]===it.id;
-    const btn=own?`<button class="btn sm ${on?'ghost':''}" data-equip="${it.id}">${on?'Togli':'Indossa'}</button>`
-      :it.special?'<span class="small muted">Premio della collezione</span>'
-      :`<button class="btn sm gold" data-shop="${it.id}" ${c.coins>=it.price?'':'disabled'}>${it.price} ${t.currency}</button>`;
-    return`<div class="panel item ${on?'equipped':''}"><div class="ie">${it.e}</div><b>${esc(it.name)}</b><span class="small muted">${SLOTS[it.slot]}</span>${btn}</div>`}).join('');
-}
 function renderColl(){
   const t=T();let n=0;
   $('coll').innerHTML=t.coll.map((it,i)=>{const got=S.got[i],ready=!got&&S.maxStage>=3+i;if(got)n++;
@@ -1268,7 +1184,7 @@ function showPreview(sf){const t=T(),s=Math.min(10,Math.floor(sf));
 
 function renderBadges(c){const n=claimable(c).length+bossesReady(c).length;$('badgeGoals').hidden=!n;$('badgeGoals').textContent=n;$('badgeTreasure').hidden=c.toCollect<1;$('badgeEvo').hidden=!collReady()}
 function renderAll(){const c=C();renderHero(c);renderBadges(c);
-  if(tab==='goals')renderGoals(c);if(tab==='treasure'){renderTreasure(c);renderWish(c)}if(tab==='evo'){renderShop(c);renderColl();renderEvo(c)}if(tab==='diary')renderDiary()}
+  if(tab==='goals')renderGoals(c);if(tab==='treasure'){renderTreasure(c);renderWish(c)}if(tab==='evo'){renderColl();renderEvo(c)}if(tab==='diary')renderDiary()}
 
 /* =====================================================================
    AZIONI
@@ -1277,9 +1193,9 @@ function claim(id,quiet){const a=ACH.find(x=>x.id===id),c=C();if(!a||S.claimed[i
   S.claimed[id]=Date.now();let gain=0;if(!S.paid[id]){S.paid[id]=1;S.achXP+=a.xp;gain=a.xp}
   if(!quiet){beep('claim');toast(a.ico,a.title,gain?`+${gain} XP`:'Riscattato di nuovo')}return gain}
 /* trasformazione animata: dissolvenza dalla forma vecchia alla nuova, poi il lampo */
-function showEvo(stage,from){const t=T(),eq=equipOf(),el=$('evoAvatar');$('evoKicker').textContent=t.evoKicker;$('evoName').textContent=t.stages[stage][0];$('evoFlavor').textContent=t.stages[stage][1];
+function showEvo(stage,from){const t=T(),el=$('evoAvatar');$('evoKicker').textContent=t.evoKicker;$('evoName').textContent=t.stages[stage][0];$('evoFlavor').textContent=t.stages[stage][1];
   const a=Math.max(0,Math.min(stage-1,from??stage-1))+.001,b=stage+.001;
-  el.classList.remove('go');el.innerHTML=`<div class="evox">${avatarSVG(S.theme,a,{equip:eq})}</div><div class="evox evon">${avatarSVG(S.theme,b,{equip:eq})}</div>`;open('mEvo');beep('evo');
+  el.classList.remove('go');el.innerHTML=`<div class="evox">${avatarSVG(S.theme,a)}</div><div class="evox evon">${avatarSVG(S.theme,b)}</div>`;open('mEvo');beep('evo');
   setTimeout(()=>{if($('mEvo').hidden)return;el.classList.add('go');setTimeout(()=>{if(!$('mEvo').hidden)flash()},1900)},500)}
 function open(id){$(id).hidden=false}
 function close(id){$(id).hidden=true;if(id==='mSOS')stopFight();
@@ -1362,11 +1278,9 @@ function renderThemePick(){$('themePick').innerHTML=Object.entries(THEMES).map((
    EVENTI
    ===================================================================== */
 document.addEventListener('click',e=>{
-  const el=e.target.closest('[data-tab],[data-claim],[data-f],[data-buy],[data-del],[data-pv],[data-theme-pick],[data-ago],[data-close],[data-boss],[data-shop],[data-equip],[data-orb],[data-trig],[data-out],[data-dellog]');if(!el)return;
+  const el=e.target.closest('[data-tab],[data-claim],[data-f],[data-buy],[data-del],[data-pv],[data-theme-pick],[data-ago],[data-close],[data-boss],[data-orb],[data-trig],[data-out],[data-dellog]');if(!el)return;
   const d=el.dataset;
   if(d.boss){claimBoss(d.boss);return}
-  if(d.shop){const it=itemById(d.shop),c=C();if(it&&!S.owned[it.id]&&c.coins>=it.price){S.coinsSpent+=it.price;S.owned[it.id]=1;(S.equip[S.theme]=equipOf())[it.slot]=it.id;save();beep('coin');toast(it.e,`${it.name} acquistato!`,'Il tuo personaggio lo indossa già.');checkProgress();renderAll()}return}
-  if(d.equip){const it=itemById(d.equip),eq=(S.equip[S.theme]=equipOf());if(eq[it.slot]===it.id)delete eq[it.slot];else eq[it.slot]=it.id;save();beep('click');renderAll();return}
   if(d.orb!==undefined){const i=+d.orb;if(!S.got[i]&&S.maxStage>=3+i){S.got[i]=true;save();beep('claim');const it=T().coll[i];toast(S.theme==='db'?'🟠':it[0],`${it[1]} trovat${S.theme==='sl'?'a':'o'}!`,`${S.got.filter(Boolean).length}/7 nella collezione`);checkProgress();renderAll()}return}
   if(d.trig){pickTrig=d.trig;renderTrigPick();$('btnSaveLog').disabled=false;return}
   if(d.out!==undefined){pickOut=+d.out;renderTrigPick();return}
@@ -1417,8 +1331,7 @@ $('btnSaveLog').onclick=()=>{if(!pickTrig||!diaryCtx)return;const won=diaryCtx.f
   save();beep('click');checkProgress();close('mDiary')};
 $('btnBoss').onclick=e=>claimBoss(e.currentTarget.dataset.boss);
 $('btnSummon').onclick=()=>{if(S.summoned||S.got.some(g=>!g))return;const t=T();S.summoned=true;S.bonusXP+=2000;
-  ['vaultboy','shenron','igris','kurama'].forEach(id=>S.owned[id]=1);const sp=ITEMS[S.theme].find(i=>i.special);(S.equip[S.theme]=equipOf()).pet=sp.id;
-  save();flash();beep('evo');toast(sp.e,t.summonDone,'+2000 XP');checkProgress();renderAll()};
+  save();flash();beep('evo');toast(t.coll[6][0],t.summonDone,'+2000 XP');checkProgress();renderAll()};
 /* tocca il personaggio: salta e parla */
 let bubbleT;
 $('heroStage').onclick=()=>{const c=C(),t=T(),box=$('heroStage'),b=$('bubble');
